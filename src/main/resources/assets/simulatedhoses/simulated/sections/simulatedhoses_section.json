@@ -1,0 +1,11 @@
+{
+  "priority": 9998,
+  "title": {
+    "text": {
+      "translate": "itemGroup.simulatedhoses.simulatedhoses_section"
+    },
+    "background": "#88000000",
+    "color": "#ffc9caba",
+    "secondary_color": "#ff8f9691"
+  }
+}

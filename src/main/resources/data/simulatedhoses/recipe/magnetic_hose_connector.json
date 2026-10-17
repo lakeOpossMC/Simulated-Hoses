@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "simulatedhoses:hose_connector" },
+    { "item": "simulated:redstone_magnet" }
+  ],
+  "result": { "count": 1, "id": "simulatedhoses:magnetic_hose_connector" }
+}

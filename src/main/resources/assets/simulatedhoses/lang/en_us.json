@@ -1,0 +1,22 @@
+{
+  "itemGroup.simulatedhoses.simulatedhoses_section": "Simulated Hoses",
+
+  "block.simulatedhoses.hose_connector": "Hose Connector",
+  "block.simulatedhoses.magnetic_hose_connector": "Magnetic Hose Connector",
+  "block.simulatedhoses.hose_winch": "Hose Winch",
+  "item.simulatedhoses.hose_coupler": "Hose Coupler",
+  "block.simulatedhoses.fluid_quick_connect": "Fluid Quick Connect",
+
+  "item.simulatedhoses.hose_coupler.too_far": "That's too far for one hose",
+  "item.simulatedhoses.hose_coupler.invalid": "A hose can't go there",
+  "block.simulatedhoses.fluid_quick_connect.resting_state": "Resting State: ",
+  "block.simulatedhoses.fluid_quick_connect.extended": "Extended",
+  "block.simulatedhoses.fluid_quick_connect.retracted": "Retracted",
+  "block.simulatedhoses.magnetic_hose_connector.polarity": "Flange Polarity: ",
+  "block.simulatedhoses.magnetic_hose_connector.polarity.north": "North",
+  "block.simulatedhoses.magnetic_hose_connector.polarity.south": "South",
+
+  "simulatedhoses.goggles.flow": "%smB/t",
+  "simulatedhoses.goggles.fluid_stats": "Fluid Stats:",
+  "simulatedhoses.goggles.fluid_pressure": "Fluid Pressure:"
+}

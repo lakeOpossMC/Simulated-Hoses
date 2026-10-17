@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "simulatedhoses:hose_connector",
+    "simulatedhoses:magnetic_hose_connector"
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "variants": {
+    "axis_along_first=false,facing=north,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "x": 180
+    },
+    "axis_along_first=false,facing=north,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "x": 180
+    },
+    "axis_along_first=false,facing=north,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "x": 180
+    },
+    "axis_along_first=true,facing=north,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 180
+    },
+    "axis_along_first=true,facing=north,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 180
+    },
+    "axis_along_first=true,facing=north,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 180
+    },
+    "axis_along_first=false,facing=south,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical"
+    },
+    "axis_along_first=false,facing=south,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical"
+    },
+    "axis_along_first=false,facing=south,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered"
+    },
+    "axis_along_first=false,facing=south,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=false,facing=south,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=false,facing=south,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block"
+    },
+    "axis_along_first=true,facing=south,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block"
+    },
+    "axis_along_first=true,facing=south,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered"
+    },
+    "axis_along_first=true,facing=south,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 180,
+      "y": 180
+    },
+    "axis_along_first=false,facing=west,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=false,facing=west,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=false,facing=west,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=true,facing=west,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=true,facing=west,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=true,facing=west,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "x": 180,
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=true,facing=east,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block_vertical",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=true,facing=east,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=true,facing=east,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_vertical_powered",
+      "x": 180,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 90,
+      "y": 270
+    },
+    "axis_along_first=false,facing=up,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 90,
+      "y": 270
+    },
+    "axis_along_first=false,facing=up,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 90,
+      "y": 270
+    },
+    "axis_along_first=true,facing=up,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis_along_first=true,facing=up,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 90,
+      "y": 180
+    },
+    "axis_along_first=true,facing=up,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 90,
+      "y": 180
+    },
+    "axis_along_first=false,facing=down,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 270,
+      "y": 270
+    },
+    "axis_along_first=false,facing=down,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 270,
+      "y": 270
+    },
+    "axis_along_first=false,facing=down,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 270,
+      "y": 270
+    },
+    "axis_along_first=true,facing=down,flipped=false,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,flipped=false,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,flipped=false,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,flipped=true,magnetic=false": {
+      "model": "simulatedhoses:block/hose_winch/block",
+      "x": 270,
+      "y": 180
+    },
+    "axis_along_first=true,facing=down,flipped=true,magnetic=true,powered=false": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block",
+      "x": 270,
+      "y": 180
+    },
+    "axis_along_first=true,facing=down,flipped=true,magnetic=true,powered=true": {
+      "model": "simulatedhoses:block/hose_winch/redstone_block_powered",
+      "x": 270,
+      "y": 180
+    }
+  }
+}

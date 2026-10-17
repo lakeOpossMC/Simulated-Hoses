@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": { "tag": "c:plates/copper" },
+    "F": { "item": "create:fluid_pipe" }
+  },
+  "pattern": [
+    "P",
+    "F"
+  ],
+  "result": { "count": 1, "id": "simulatedhoses:hose_connector" }
+}

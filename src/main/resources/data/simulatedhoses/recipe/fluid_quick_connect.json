@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": { "item": "create:electron_tube" },
+    "K": { "item": "minecraft:dried_kelp" },
+    "H": { "item": "simulatedhoses:hose_connector" }
+  },
+  "pattern": [
+    "T",
+    "K",
+    "H"
+  ],
+  "result": { "count": 1, "id": "simulatedhoses:fluid_quick_connect" }
+}

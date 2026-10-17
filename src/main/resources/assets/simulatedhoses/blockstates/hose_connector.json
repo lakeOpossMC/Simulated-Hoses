@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "axis_along_first=false,facing=down": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=north": {
+      "model": "simulatedhoses:block/hose_connector/block_vertical",
+      "y": 180
+    },
+    "axis_along_first=false,facing=south": {
+      "model": "simulatedhoses:block/hose_connector/block_vertical"
+    },
+    "axis_along_first=false,facing=up": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=west": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "y": 90
+    },
+    "axis_along_first=true,facing=down": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "x": 270
+    },
+    "axis_along_first=true,facing=east": {
+      "model": "simulatedhoses:block/hose_connector/block_vertical",
+      "y": 270
+    },
+    "axis_along_first=true,facing=north": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south": {
+      "model": "simulatedhoses:block/hose_connector/block"
+    },
+    "axis_along_first=true,facing=up": {
+      "model": "simulatedhoses:block/hose_connector/block",
+      "x": 90
+    },
+    "axis_along_first=true,facing=west": {
+      "model": "simulatedhoses:block/hose_connector/block_vertical",
+      "y": 90
+    }
+  }
+}

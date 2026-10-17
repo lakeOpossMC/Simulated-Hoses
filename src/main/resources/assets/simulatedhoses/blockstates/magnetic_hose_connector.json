@@ -1,0 +1,196 @@
+{
+  "variants": {
+    "axis_along_first=false,facing=down,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=down,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "y": 270
+    },
+    "axis_along_first=false,facing=east,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "y": 270
+    },
+    "axis_along_first=false,facing=north,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_inverted",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered",
+      "y": 180
+    },
+    "axis_along_first=false,facing=north,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered_inverted",
+      "y": 180
+    },
+    "axis_along_first=false,facing=south,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical"
+    },
+    "axis_along_first=false,facing=south,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_inverted"
+    },
+    "axis_along_first=false,facing=south,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered"
+    },
+    "axis_along_first=false,facing=south,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered_inverted"
+    },
+    "axis_along_first=false,facing=up,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=up,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "y": 90
+    },
+    "axis_along_first=false,facing=west,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "y": 90
+    },
+    "axis_along_first=true,facing=down,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "x": 270
+    },
+    "axis_along_first=true,facing=down,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "x": 270
+    },
+    "axis_along_first=true,facing=east,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_inverted",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered",
+      "y": 270
+    },
+    "axis_along_first=true,facing=east,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered_inverted",
+      "y": 270
+    },
+    "axis_along_first=true,facing=north,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "y": 180
+    },
+    "axis_along_first=true,facing=north,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block"
+    },
+    "axis_along_first=true,facing=south,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted"
+    },
+    "axis_along_first=true,facing=south,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered"
+    },
+    "axis_along_first=true,facing=south,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted"
+    },
+    "axis_along_first=true,facing=up,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_inverted",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered",
+      "x": 90
+    },
+    "axis_along_first=true,facing=up,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_powered_inverted",
+      "x": 90
+    },
+    "axis_along_first=true,facing=west,inverted=false,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,inverted=true,powered=false": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_inverted",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,inverted=false,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered",
+      "y": 90
+    },
+    "axis_along_first=true,facing=west,inverted=true,powered=true": {
+      "model": "simulatedhoses:block/magnetic_hose_connector/block_vertical_powered_inverted",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    { "item": "simulatedhoses:hose_connector" },
+    { "item": "simulated:redstone_magnet" }
+  ],
+  "results": [
+    { "id": "simulatedhoses:magnetic_hose_connector" }
+  ]
+}
