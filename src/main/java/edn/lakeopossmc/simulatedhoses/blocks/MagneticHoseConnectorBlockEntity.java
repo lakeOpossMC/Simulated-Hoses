@@ -104,7 +104,7 @@ public class MagneticHoseConnectorBlockEntity extends HoseConnectorBlockEntity i
             this.lockSmoother = null;
         }
 
-        if (powered && this.getQuickConnectPos() == null) {
+        if (powered && this.getQuickConnectPos() == null && !this.hasNozzle()) {
             this.searchForPairs();
         }
 
@@ -218,7 +218,7 @@ public class MagneticHoseConnectorBlockEntity extends HoseConnectorBlockEntity i
                     continue;
                 }
                 // * Two magnets on the same grid can never move towards each other
-                if (magnet.coupledPos != null || magnet.getQuickConnectPos() != null || !magnet.isPowered() || !this.hasOppositePolarity(magnet)
+                if (magnet.coupledPos != null || magnet.getQuickConnectPos() != null || magnet.hasNozzle() || !magnet.isPowered() || !this.hasOppositePolarity(magnet)
                         || Sable.HELPER.getContaining(magnet) == subLevel) {
                     continue;
                 }

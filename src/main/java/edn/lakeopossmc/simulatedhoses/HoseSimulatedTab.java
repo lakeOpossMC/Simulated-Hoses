@@ -15,6 +15,7 @@ public final class HoseSimulatedTab {
         addItem(HoseItems.HOSE_CONNECTOR.get());
         addItem(HoseItems.MAGNETIC_HOSE_CONNECTOR.get());
         addItem(HoseItems.FLUID_QUICK_CONNECT.get());
+        addItem(HoseItems.PRESSURE_NOZZLE.get());
         addItem(HoseItems.HOSE_COUPLER.get());
     }
 

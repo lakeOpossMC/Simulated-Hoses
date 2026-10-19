@@ -197,7 +197,7 @@ public class FluidQuickConnectBlockEntity extends SmartBlockEntity implements Ho
         HoseConnectorBlockEntity best = null;
         double closest = CAPTURE_RANGE;
         for (final HoseConnectorBlockEntity connector : HoseConnectorBlockEntity.loaded(this.level)) {
-            if (connector.isRemoved() || connector.isCoupledElsewhere() || connector.getQuickConnectPos() != null) {
+            if (connector.isRemoved() || connector.isCoupledElsewhere() || connector.getQuickConnectPos() != null || connector.hasNozzle()) {
                 continue;
             }
             final SubLevel connectorSubLevel = Sable.HELPER.getContaining(connector);

@@ -7,7 +7,10 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.ryanhcode.sable.platform.SableEventPlatform;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
+import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
 import edn.lakeopossmc.simulatedhoses.client.HoseClient;
+import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
+import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodSounds;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabHandler;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabPacket;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -32,14 +35,19 @@ public class SimulatedHosesMod {
         HoseBlocks.register(modEventBus);
         HoseBlockEntities.register(modEventBus);
         HoseItems.register(modEventBus);
+        HoseFluids.register(modEventBus);
         HoseDataComponents.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(HoseCommonEvents::registerCapabilities);
         modEventBus.addListener(HoseGrabPacket::register);
+        modEventBus.addListener(PlantFoodCoating::registerPacket);
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> HoseGrabHandler.serverTick());
 
         NeoForge.EVENT_BUS.addListener(HoseCommonEvents::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(PlantFoodSounds::onEntityTick);
+        NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onStartTracking);
         SableEventPlatform.INSTANCE.onPhysicsTick(HoseCommonEvents::onPhysicsTick);
 
         if (dist.isClient()) {
@@ -52,6 +60,7 @@ public class SimulatedHosesMod {
         event.enqueueWork(() -> {
             HoseConnectorBlock.registerAttachedCheck();
             HoseWinchBlock.registerAttachedCheck();
+            PressureNozzleBlock.registerAttachedCheck();
             BlockStressValues.IMPACTS.register(HoseBlocks.HOSE_WINCH.get(), () -> WINCH_STRESS_IMPACT);
             TooltipModifier.REGISTRY.register(HoseItems.HOSE_WINCH.get(), TooltipModifier.mapNull(KineticStats.create(HoseItems.HOSE_WINCH.get())));
             HoseSimulatedTab.register();

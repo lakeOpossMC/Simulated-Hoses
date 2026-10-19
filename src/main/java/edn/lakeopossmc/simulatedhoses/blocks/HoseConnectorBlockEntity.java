@@ -185,6 +185,22 @@ public class HoseConnectorBlockEntity extends SmartBlockEntity implements RopeSt
         this.setChanged();
     }
 
+    // * A pressure nozzle
+    @Nullable
+    public PressureNozzleBlockEntity getNozzle() {
+        if (this.level == null) {
+            return null;
+        }
+        final Direction flange = this.getFlangeDirection();
+        final BlockPos nozzlePos = this.worldPosition.relative(flange);
+        return this.level.getBlockEntity(nozzlePos) instanceof final PressureNozzleBlockEntity nozzle
+                && nozzle.getFacing() == flange ? nozzle : null;
+    }
+
+    public boolean hasNozzle() {
+        return this.getNozzle() != null;
+    }
+
     // * Locked onto something other than a quick connect
     public boolean isCoupledElsewhere() {
         return false;

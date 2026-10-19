@@ -13,7 +13,7 @@ import org.joml.Quaternionf;
 
 // --- GRAB PACKET --- //
 // * Client to server: Sent again every few ticks while holding
-public record HoseGrabPacket(BlockPos pos, float distance, boolean release, boolean rotated, Quaternionf orientation) implements CustomPacketPayload {
+public record HoseGrabPacket(BlockPos pos, float distance, boolean release, boolean rotated, Quaternionf orientation, boolean trigger) implements CustomPacketPayload {
 
     public static final Type<HoseGrabPacket> TYPE = new Type<>(SimulatedHosesMod.asResource("grab_connector"));
     public static final StreamCodec<RegistryFriendlyByteBuf, HoseGrabPacket> CODEC = StreamCodec.composite(
@@ -22,10 +22,11 @@ public record HoseGrabPacket(BlockPos pos, float distance, boolean release, bool
             ByteBufCodecs.BOOL, HoseGrabPacket::release,
             ByteBufCodecs.BOOL, HoseGrabPacket::rotated,
             ByteBufCodecs.QUATERNIONF, HoseGrabPacket::orientation,
+            ByteBufCodecs.BOOL, HoseGrabPacket::trigger,
             HoseGrabPacket::new);
 
     public static void register(final RegisterPayloadHandlersEvent event) {
-        event.registrar("1")
+        event.registrar("2")
                 .playToServer(TYPE, CODEC, HoseGrabPacket::handle);
     }
 
@@ -36,7 +37,7 @@ public record HoseGrabPacket(BlockPos pos, float distance, boolean release, bool
         if (packet.release()) {
             HoseGrabHandler.release(player);
         } else {
-            HoseGrabHandler.hold(player, packet.pos(), packet.distance(), packet.rotated() ? packet.orientation() : null);
+            HoseGrabHandler.hold(player, packet.pos(), packet.distance(), packet.rotated() ? packet.orientation() : null, packet.trigger());
         }
     }
 

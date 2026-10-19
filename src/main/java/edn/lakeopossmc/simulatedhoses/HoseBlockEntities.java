@@ -4,6 +4,7 @@ import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.MagneticHoseConnectorBlockEntity;
+import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -44,6 +45,13 @@ public final class HoseBlockEntities {
                     () -> BlockEntityType.Builder.of(
                             (pos, state) -> new FluidQuickConnectBlockEntity(HoseBlockEntities.FLUID_QUICK_CONNECT.get(), pos, state),
                             HoseBlocks.FLUID_QUICK_CONNECT.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PressureNozzleBlockEntity>> PRESSURE_NOZZLE =
+            BLOCK_ENTITY_TYPES.register(
+                    "pressure_nozzle",
+                    () -> BlockEntityType.Builder.of(
+                            (pos, state) -> new PressureNozzleBlockEntity(HoseBlockEntities.PRESSURE_NOZZLE.get(), pos, state),
+                            HoseBlocks.PRESSURE_NOZZLE.get()).build(null));
 
     private HoseBlockEntities() {
     }

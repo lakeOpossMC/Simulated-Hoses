@@ -21,6 +21,8 @@ public final class HoseCommonEvents {
                 (be, side) -> side == null || side == be.getPortDirection() ? be.getPortHandler() : null);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.FLUID_QUICK_CONNECT.get(),
                 (be, side) -> side == null || side == be.getPortDirection() ? be.getPortHandler() : null);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.PRESSURE_NOZZLE.get(),
+                (be, side) -> be.getIntake(side));
     }
 
     // * Drops dead magnet pairs and checks live ones for coupling

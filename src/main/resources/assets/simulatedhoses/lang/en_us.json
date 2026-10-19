@@ -6,6 +6,7 @@
   "block.simulatedhoses.hose_winch": "Hose Winch",
   "item.simulatedhoses.hose_coupler": "Hose Coupler",
   "block.simulatedhoses.fluid_quick_connect": "Fluid Quick Connect",
+  "block.simulatedhoses.pressure_nozzle": "Pressure Nozzle",
 
   "item.simulatedhoses.hose_coupler.too_far": "That's too far for one hose",
   "item.simulatedhoses.hose_coupler.invalid": "A hose can't go there",

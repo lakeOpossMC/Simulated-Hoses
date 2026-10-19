@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simulatedhoses:block/pressure_nozzle/block",
+      "x": 270
+    },
+    "facing=up": {
+      "model": "simulatedhoses:block/pressure_nozzle/block",
+      "x": 90
+    },
+    "facing=north": {
+      "model": "simulatedhoses:block/pressure_nozzle/block",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "simulatedhoses:block/pressure_nozzle/block"
+    },
+    "facing=west": {
+      "model": "simulatedhoses:block/pressure_nozzle/block",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "simulatedhoses:block/pressure_nozzle/block",
+      "y": 270
+    }
+  }
+}

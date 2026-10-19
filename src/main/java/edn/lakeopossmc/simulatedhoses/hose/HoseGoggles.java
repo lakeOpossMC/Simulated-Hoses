@@ -16,14 +16,18 @@ public final class HoseGoggles {
         if (!hosed && endpoint.getCoupledEndpoint() == null) {
             return false;
         }
+        addFlowLines(tooltip, endpoint.getHoseFlow());
+        return true;
+    }
+
+    public static void addFlowLines(final List<Component> tooltip, final int flow) {
         lang().translate("goggles.fluid_stats").forGoggles(tooltip);
         lang().translate("goggles.fluid_pressure").style(ChatFormatting.GRAY).forGoggles(tooltip);
-        lang().translate("goggles.flow", Math.abs(endpoint.getHoseFlow()))
+        lang().translate("goggles.flow", Math.abs(flow))
                 .style(ChatFormatting.AQUA)
                 .space()
                 .add(CreateLang.translate("gui.goggles.at_current_speed").style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
-        return true;
     }
 
     private static LangBuilder lang() {

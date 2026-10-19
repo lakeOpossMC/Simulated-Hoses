@@ -13,6 +13,9 @@ public final class HosePartialModels {
     public static final PartialModel QUICK_CONNECT_EXTENDER_POWERED = block("fluid_quick_connect/extender_powered");
     public static final PartialModel QUICK_CONNECT_PORT = block("fluid_quick_connect/port");
     public static final PartialModel QUICK_CONNECT_PORT_POWERED = block("fluid_quick_connect/port_powered");
+    public static final PartialModel PRESSURE_NOZZLE_COG = block("pressure_nozzle/cog");
+    public static final PartialModel PRESSURE_NOZZLE_NOZZLE = block("pressure_nozzle/nozzle");
+    public static final PartialModel PRESSURE_NOZZLE_TIP = block("pressure_nozzle/tip");
 
     private static PartialModel block(final String path) {
         return PartialModel.of(SimulatedHosesMod.asResource("block/" + path));

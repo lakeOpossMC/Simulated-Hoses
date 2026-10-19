@@ -4,7 +4,10 @@ import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.MagneticHoseConnectorBlock;
+import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
+import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
@@ -42,6 +45,24 @@ public final class HoseBlocks {
                     .strength(2.0F, 6.0F)
                     .noOcclusion()
                     .forceSolidOn())
+    );
+
+    public static final DeferredBlock<PressureNozzleBlock> PRESSURE_NOZZLE = BLOCKS.register(
+            "pressure_nozzle",
+            () -> new PressureNozzleBlock(connectorProperties())
+    );
+
+    public static final DeferredBlock<PlantFoodBlock> PLANT_FOOD = BLOCKS.register(
+            "plant_food",
+            () -> new PlantFoodBlock(HoseFluids.PLANT_FOOD.get(), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .replaceable()
+                    .noCollission()
+                    .strength(100.0F)
+                    .pushReaction(PushReaction.DESTROY)
+                    .noLootTable()
+                    .liquid()
+                    .sound(SoundType.EMPTY))
     );
 
     private static BlockBehaviour.Properties connectorProperties() {
