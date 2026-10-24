@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "simulatedhoses:fluid/plant_food_still"
+    },
+    {
+      "type": "single",
+      "resource": "simulatedhoses:fluid/plant_food_flow"
+    }
+  ]
+}

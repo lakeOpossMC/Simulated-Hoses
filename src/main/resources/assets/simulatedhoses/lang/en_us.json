@@ -19,5 +19,9 @@
 
   "simulatedhoses.goggles.flow": "%smB/t",
   "simulatedhoses.goggles.fluid_stats": "Fluid Stats:",
-  "simulatedhoses.goggles.fluid_pressure": "Fluid Pressure:"
+  "simulatedhoses.goggles.fluid_pressure": "Fluid Pressure:",
+  "fluid_type.simulatedhoses.plant_food": "Plant Food",
+  "block.simulatedhoses.plant_food": "Plant Food",
+  "item.simulatedhoses.plant_food_bucket": "Plant Food Bucket",
+  "effect.simulatedhoses.gooped": "Gooped!"
 }
