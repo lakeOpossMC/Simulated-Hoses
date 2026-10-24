@@ -10,6 +10,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -26,8 +27,10 @@ import org.jetbrains.annotations.Nullable;
 
 // --- PLANT FOOD BUCKET --- //
 // * Drinking sounds like honey and leaves you Gooped!
+// * ...I don't feel so good
 public class PlantFoodBucketItem extends BucketItem {
     private static final int DRINK_TICKS = 32;
+    private static final int NAUSEA_TICKS = 400;
 
     public PlantFoodBucketItem(final Fluid fluid, final Properties properties) {
         super(fluid, properties);
@@ -49,6 +52,7 @@ public class PlantFoodBucketItem extends BucketItem {
         }
         if (!level.isClientSide()) {
             entity.addEffect(new MobEffectInstance(HoseEffects.GOOPED, PlantFoodCoating.DURATION));
+            entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, NAUSEA_TICKS));
         }
         if (entity instanceof final Player player && !player.hasInfiniteMaterials()) {
             stack.shrink(1);
