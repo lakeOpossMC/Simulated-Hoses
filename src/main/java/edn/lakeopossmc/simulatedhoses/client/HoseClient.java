@@ -31,7 +31,6 @@ public final class HoseClient {
         modEventBus.addListener(PlantFoodVisionOverlay::register);
         modEventBus.addListener((RegisterClientReloadListenersEvent event) -> event.registerReloadListener(
                 (ResourceManagerReloadListener) manager -> {
-                    PlantFoodOutlineTexture.invalidate();
                     PlantFoodVisionFilter.invalidate();
                     PlantFoodGlaze.invalidate();
                 }));
@@ -44,7 +43,11 @@ public final class HoseClient {
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> HoseCouplerClientHandler.tick());
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> PlantFoodCoating.clientTick());
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> PlantFoodDrips.tick());
-        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut event) -> PlantFoodCoating.clientReset());
+        NeoForge.EVENT_BUS.addListener(PlantFoodLateBuffers::onRenderStage);
+        NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut event) -> {
+            PlantFoodCoating.clientReset();
+            HoseCarryPose.clientReset();
+        });
         NeoForge.EVENT_BUS.addListener(HoseClient::onClickInput);
         NeoForge.EVENT_BUS.addListener((RenderHandEvent event) -> NozzleArmRenderer.render(event, grab != null && grab.isCarryingNozzle(),
                 grab != null ? grab.getNozzleHeldTicks(event.getPartialTick()) : 0.0F));

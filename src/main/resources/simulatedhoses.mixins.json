@@ -3,7 +3,8 @@
   "package": "edn.lakeopossmc.simulatedhoses.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MixinRopeItem"
+    "MixinRopeItem",
+    "MixinEntityStepSound"
   ],
   "client": [
     "MixinHumanoidModelCarry"

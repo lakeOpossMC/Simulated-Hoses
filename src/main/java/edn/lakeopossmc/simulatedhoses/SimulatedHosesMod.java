@@ -9,6 +9,7 @@ import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
 import edn.lakeopossmc.simulatedhoses.client.HoseClient;
+import edn.lakeopossmc.simulatedhoses.fluids.GoopedEffect;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodSounds;
 import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
@@ -37,6 +38,7 @@ public class SimulatedHosesMod {
         HoseBlockEntities.register(modEventBus);
         HoseItems.register(modEventBus);
         HoseFluids.register(modEventBus);
+        HoseEffects.register(modEventBus);
         HoseDataComponents.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
@@ -49,6 +51,8 @@ public class SimulatedHosesMod {
         NeoForge.EVENT_BUS.addListener(HoseCommonEvents::onLevelTick);
         NeoForge.EVENT_BUS.addListener(PlantFoodSounds::onEntityTick);
         NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onEntityTick);
+        NeoForge.EVENT_BUS.addListener(GoopedEffect::noFloatingParticles);
         NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onStartTracking);
         NeoForge.EVENT_BUS.addListener(HoseCarryPose::onLogin);
         SableEventPlatform.INSTANCE.onPhysicsTick(HoseCommonEvents::onPhysicsTick);
