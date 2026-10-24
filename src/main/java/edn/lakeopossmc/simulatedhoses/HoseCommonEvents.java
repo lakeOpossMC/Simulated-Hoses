@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 // --- COMMON EVENT HOOKS --- //
 public final class HoseCommonEvents {
@@ -23,6 +24,8 @@ public final class HoseCommonEvents {
                 (be, side) -> side == null || side == be.getPortDirection() ? be.getPortHandler() : null);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.PRESSURE_NOZZLE.get(),
                 (be, side) -> be.getIntake(side));
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new FluidBucketWrapper(stack),
+                HoseItems.PLANT_FOOD_BUCKET.get());
     }
 
     // * Drops dead magnet pairs and checks live ones for coupling
