@@ -3,6 +3,7 @@ package edn.lakeopossmc.simulatedhoses.client;
 import dev.simulated_team.simulated.index.SimClickInteractions;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
+import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.IEventBus;

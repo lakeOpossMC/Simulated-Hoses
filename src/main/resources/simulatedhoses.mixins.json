@@ -6,6 +6,7 @@
     "MixinRopeItem"
   ],
   "client": [
+    "MixinHumanoidModelCarry"
   ],
   "injectors": {
     "defaultRequire": 1

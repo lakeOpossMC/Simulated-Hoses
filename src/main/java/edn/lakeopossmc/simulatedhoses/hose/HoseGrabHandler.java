@@ -149,6 +149,9 @@ public final class HoseGrabHandler {
             grab.nozzleAim = nozzle != null ? crosshairPoint(player, grab) : null;
             tickPullOff(player, grab);
         }
+        final Map<UUID, Boolean> carrying = new HashMap<>();
+        GRABS.forEach((uuid, grab) -> carrying.put(uuid, grab.nozzleFacing != null));
+        HoseCarryPose.update(carrying);
     }
 
     public static boolean isTriggerHeld(final Level level, final BlockPos nozzlePos, @Nullable final BlockPos connectorPos) {

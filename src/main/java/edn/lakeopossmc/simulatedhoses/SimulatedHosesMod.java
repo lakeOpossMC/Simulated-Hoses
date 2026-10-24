@@ -11,6 +11,7 @@ import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
 import edn.lakeopossmc.simulatedhoses.client.HoseClient;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodSounds;
+import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabHandler;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabPacket;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -42,12 +43,14 @@ public class SimulatedHosesMod {
         modEventBus.addListener(HoseCommonEvents::registerCapabilities);
         modEventBus.addListener(HoseGrabPacket::register);
         modEventBus.addListener(PlantFoodCoating::registerPacket);
+        modEventBus.addListener(HoseCarryPose::registerPacket);
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> HoseGrabHandler.serverTick());
 
         NeoForge.EVENT_BUS.addListener(HoseCommonEvents::onLevelTick);
         NeoForge.EVENT_BUS.addListener(PlantFoodSounds::onEntityTick);
         NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onStartTracking);
+        NeoForge.EVENT_BUS.addListener(HoseCarryPose::onLogin);
         SableEventPlatform.INSTANCE.onPhysicsTick(HoseCommonEvents::onPhysicsTick);
 
         if (dist.isClient()) {
