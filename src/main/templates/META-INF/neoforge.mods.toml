@@ -50,3 +50,10 @@ config="${mod_id}.mixins.json"
     versionRange="[${simulated_mod_version},)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies."${mod_id}"]]
+    modId="bits_n_dyes"
+    type="optional"
+    versionRange="[1.1.2,)"
+    ordering="AFTER"
+    side="BOTH"

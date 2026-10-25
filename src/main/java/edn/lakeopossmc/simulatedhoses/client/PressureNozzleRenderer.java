@@ -25,17 +25,17 @@ public class PressureNozzleRenderer extends SafeBlockEntityRenderer<PressureNozz
         final Quaternionf facing = modelRotation(state.getValue(PressureNozzleBlock.FACING));
         final VertexConsumer consumer = buffer.getBuffer(RenderType.cutoutMipped());
 
-        CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_COG, state)
+        HoseDyedParts.dye(CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_COG, state), be, HoseDyedParts.PRESSURE_NOZZLE)
                 .rotateCentered(facing)
                 .rotateCentered((float) Math.toRadians(be.getCogAngle(partialTicks)), Direction.SOUTH)
                 .light(light)
                 .renderInto(ms, consumer);
-        CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_NOZZLE, state)
+        HoseDyedParts.dye(CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_NOZZLE, state), be, HoseDyedParts.PRESSURE_NOZZLE)
                 .rotateCentered(facing)
                 .translate(0.0F, 0.0F, -be.getNozzleOffset(partialTicks) / 16.0F)
                 .light(light)
                 .renderInto(ms, consumer);
-        CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_TIP, state)
+        HoseDyedParts.dye(CachedBuffers.partial(HosePartialModels.PRESSURE_NOZZLE_TIP, state), be, HoseDyedParts.PRESSURE_NOZZLE)
                 .rotateCentered(facing)
                 .translate(0.0F, 0.0F, -be.getTipOffset(partialTicks) / 16.0F)
                 .light(light)

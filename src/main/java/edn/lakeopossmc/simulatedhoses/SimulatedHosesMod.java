@@ -9,6 +9,7 @@ import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
 import edn.lakeopossmc.simulatedhoses.client.HoseClient;
+import edn.lakeopossmc.simulatedhoses.compat.HoseDyeing;
 import edn.lakeopossmc.simulatedhoses.fluids.GoopedEffect;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodSounds;
@@ -60,6 +61,7 @@ public class SimulatedHosesMod {
         if (dist.isClient()) {
             HoseClient.init(modEventBus);
         }
+        HoseDyeing.init(modEventBus, dist);
     }
     //#endregion
 

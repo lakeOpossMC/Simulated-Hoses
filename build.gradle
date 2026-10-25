@@ -45,6 +45,16 @@ repositories {
     maven { url = "https://maven.ithundxr.dev/hidden" } // Registrate
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     maven { url = "https://maven.createmod.net" } // Ponder
+
+    // Bits 'n' Dyes, Bits 'n' Bobs, Azimuth
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://api.modrinth.com/maven" }
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 base {
@@ -121,6 +131,11 @@ dependencies {
     implementation("dev.simulated_team.simulated:simulated-neoforge-${minecraft_version}:${simulated_version}") {
         transitive = false
     }
+
+    // Optional dyeable copper
+    compileOnly("maven.modrinth:create-bits-n-dyes:${bits_n_dyes_version}")
+    compileOnly("maven.modrinth:create-bits-n-bobs:${bits_n_bobs_version}")
+    compileOnly("maven.modrinth:azimuth-api:${azimuth_version}")
 }
 
 // Expands the ${} properties in src/main/templates (mods.toml)

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "simulatedhoses:hose_connector",
+    "simulatedhoses:magnetic_hose_connector",
+    "simulatedhoses:hose_winch",
+    "simulatedhoses:fluid_quick_connect",
+    "simulatedhoses:pressure_nozzle"
+  ]
+}
