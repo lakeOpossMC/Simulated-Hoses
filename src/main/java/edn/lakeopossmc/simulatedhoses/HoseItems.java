@@ -2,6 +2,7 @@ package edn.lakeopossmc.simulatedhoses;
 
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodBucketItem;
 import edn.lakeopossmc.simulatedhoses.items.HoseCouplerItem;
+import edn.lakeopossmc.simulatedhoses.items.SuperSoakerItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
@@ -23,6 +24,11 @@ public final class HoseItems {
     public static final DeferredItem<BlockItem> HOSE_WINCH = ITEMS.registerSimpleBlockItem("hose_winch", HoseBlocks.HOSE_WINCH);
     public static final DeferredItem<BlockItem> FLUID_QUICK_CONNECT = ITEMS.registerSimpleBlockItem("fluid_quick_connect", HoseBlocks.FLUID_QUICK_CONNECT);
     public static final DeferredItem<BlockItem> PRESSURE_NOZZLE = ITEMS.registerSimpleBlockItem("pressure_nozzle", HoseBlocks.PRESSURE_NOZZLE);
+
+    public static final DeferredItem<SuperSoakerItem> SUPER_SOAKER = ITEMS.register(
+            "super_soaker",
+            () -> new SuperSoakerItem(new Item.Properties().durability(SuperSoakerItem.DURABILITY))
+    );
 
     public static final DeferredItem<PlantFoodBucketItem> PLANT_FOOD_BUCKET = ITEMS.register(
             "plant_food_bucket",

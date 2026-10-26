@@ -57,6 +57,15 @@ public final class NozzleJet {
         return new Aim(vec(start), vec(normal), vec(side1), vec(side2));
     }
 
+    // * A jet from a point in any direction
+    public static Aim aimAlong(final Vec3 start, final Vec3 direction) {
+        final Vec3 normal = direction.normalize();
+        final Vec3 up = Math.abs(normal.y) > 0.99 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(0.0, 1.0, 0.0);
+        final Vec3 side1 = normal.cross(up).normalize();
+        final Vec3 side2 = normal.cross(side1);
+        return new Aim(start, normal, side1, side2);
+    }
+
     private static Vec3 vec(final Vector3d v) {
         return new Vec3(v.x, v.y, v.z);
     }

@@ -1,6 +1,7 @@
 package edn.lakeopossmc.simulatedhoses.client;
 
 import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
+import edn.lakeopossmc.simulatedhoses.items.SuperSoakerItem;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
@@ -16,10 +17,12 @@ public final class HoseCarryArms {
     private static final float NOZZLE_MAIN_OUTWARD = (float) Math.toRadians(6);
     private static final float NOZZLE_OFF_DROP = (float) Math.toRadians(18);
     private static final float NOZZLE_OFF_INWARD = (float) Math.toRadians(38);
+    private static final float DUAL_SOAKER_INWARD = (float) Math.toRadians(10);
 
     public static void pose(final Player player, final HumanoidModel<?> model) {
         final Boolean nozzle = HoseCarryPose.carryingNozzle(player.getUUID());
         if (nozzle == null) {
+            dualSoakers(player, model);
             return;
         }
         final float pitch = model.head.xRot - Mth.HALF_PI;
@@ -35,6 +38,17 @@ public final class HoseCarryArms {
         final float side = right ? 1.0F : -1.0F;
         aim(main, pitch + NOZZLE_MAIN_DROP, yaw + side * NOZZLE_MAIN_OUTWARD);
         aim(off, pitch + NOZZLE_OFF_DROP, yaw + side * NOZZLE_OFF_INWARD);
+    }
+
+    private static void dualSoakers(final Player player, final HumanoidModel<?> model) {
+        if (!(player.getMainHandItem().getItem() instanceof SuperSoakerItem) || !(player.getOffhandItem().getItem() instanceof SuperSoakerItem)
+                || player.swinging) {
+            return;
+        }
+        final float pitch = model.head.xRot - Mth.HALF_PI;
+        final float yaw = model.head.yRot;
+        aim(model.rightArm, pitch, yaw - DUAL_SOAKER_INWARD);
+        aim(model.leftArm, pitch, yaw + DUAL_SOAKER_INWARD);
     }
 
     private static void aim(final ModelPart arm, final float xRot, final float yRot) {

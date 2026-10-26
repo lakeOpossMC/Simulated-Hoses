@@ -16,9 +16,16 @@ public final class HosePartialModels {
     public static final PartialModel PRESSURE_NOZZLE_COG = block("pressure_nozzle/cog");
     public static final PartialModel PRESSURE_NOZZLE_NOZZLE = block("pressure_nozzle/nozzle");
     public static final PartialModel PRESSURE_NOZZLE_TIP = block("pressure_nozzle/tip");
+    public static final PartialModel SUPER_SOAKER_COG = item("super_soaker/cog");
+    public static final PartialModel SUPER_SOAKER_RUBBER = item("super_soaker/rubber");
+    public static final PartialModel SUPER_SOAKER_TIP = item("super_soaker/tip");
 
     private static PartialModel block(final String path) {
         return PartialModel.of(SimulatedHosesMod.asResource("block/" + path));
+    }
+
+    private static PartialModel item(final String path) {
+        return PartialModel.of(SimulatedHosesMod.asResource("item/" + path));
     }
 
     // * Loads the class so the partials register before models bake

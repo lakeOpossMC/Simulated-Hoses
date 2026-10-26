@@ -16,6 +16,7 @@ public final class HoseSimulatedTab {
         addItem(HoseItems.MAGNETIC_HOSE_CONNECTOR.get());
         addItem(HoseItems.FLUID_QUICK_CONNECT.get());
         addItem(HoseItems.PRESSURE_NOZZLE.get());
+        addItem(HoseItems.SUPER_SOAKER.get());
         addItem(HoseItems.HOSE_COUPLER.get());
         addItem(HoseItems.PLANT_FOOD_BUCKET.get());
     }

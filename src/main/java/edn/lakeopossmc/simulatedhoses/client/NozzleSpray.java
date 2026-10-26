@@ -21,11 +21,17 @@ public final class NozzleSpray {
 
     public static void tick(final Level level, final BlockPos pos, final Direction direction, final double faceOffset,
                             final FluidStack fluid, final int flow, final float fullFlow) {
+        if (fluid.isEmpty() || flow <= 0 || !(level instanceof ClientLevel)) {
+            return;
+        }
+        tick(level, NozzleJet.aim(level, pos, direction, faceOffset), fluid, flow, fullFlow);
+    }
+
+    public static void tick(final Level level, final NozzleJet.Aim aim, final FluidStack fluid, final int flow, final float fullFlow) {
         if (fluid.isEmpty() || flow <= 0 || !(level instanceof final ClientLevel clientLevel)) {
             return;
         }
         final RandomSource random = level.random;
-        final NozzleJet.Aim aim = NozzleJet.aim(level, pos, direction, faceOffset);
 
         final double fraction = Mth.clamp(flow / fullFlow, 0.0, 1.0);
         final double speed = NozzleJet.speed(fraction);

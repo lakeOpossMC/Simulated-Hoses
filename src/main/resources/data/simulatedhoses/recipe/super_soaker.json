@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    { "item": "create:potato_cannon" },
+    { "item": "simulatedhoses:pressure_nozzle" }
+  ],
+  "result": { "count": 1, "id": "simulatedhoses:super_soaker" }
+}

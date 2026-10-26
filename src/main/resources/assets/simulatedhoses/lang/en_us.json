@@ -7,6 +7,7 @@
   "item.simulatedhoses.hose_coupler": "Hose Coupler",
   "block.simulatedhoses.fluid_quick_connect": "Fluid Quick Connect",
   "block.simulatedhoses.pressure_nozzle": "Pressure Nozzle",
+  "item.simulatedhoses.super_soaker": "Super Soaker",
 
   "item.simulatedhoses.hose_coupler.too_far": "That's too far for one hose",
   "item.simulatedhoses.hose_coupler.invalid": "A hose can't go there",
@@ -16,6 +17,8 @@
   "block.simulatedhoses.magnetic_hose_connector.polarity": "Flange Polarity: ",
   "block.simulatedhoses.magnetic_hose_connector.polarity.north": "North",
   "block.simulatedhoses.magnetic_hose_connector.polarity.south": "South",
+  "item.simulatedhoses.super_soaker.empty": "Empty",
+  "item.simulatedhoses.super_soaker.contents": "%s: %s / %s mB",
 
   "simulatedhoses.goggles.flow": "%smB/t",
   "simulatedhoses.goggles.fluid_stats": "Fluid Stats:",

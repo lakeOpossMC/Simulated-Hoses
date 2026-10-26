@@ -15,6 +15,7 @@ import edn.lakeopossmc.simulatedhoses.hose.NozzleGrowth;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleJet;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleProcessing;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleSprayEffects;
+import edn.lakeopossmc.simulatedhoses.hose.SpraySource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
@@ -35,20 +37,21 @@ import java.util.List;
 
 // --- PRESSURE NOZZLE BLOCK ENTITY --- //
 // * Closed until whoever is carrying it pulls the trigger
-public class PressureNozzleBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class PressureNozzleBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, SpraySource {
     public static final float FULL_FLOW = 250.0F;
     private static final int MAX_INTAKE = 250;
     private static final int SYNC_INTERVAL = 10;
     private static final double TIP_FACE = 18.0 / 16.0 - 0.5;
     private static final double JET_START = 0.5 + 1.0 / 32.0;
 
-    private static final float MIN_SPIN = 3.0F;
-    private static final float MAX_SPIN = 40.0F;
-    private static final float SPIN_EASE = 0.15F;
-    private static final float NOZZLE_PRESS = 1.0F;
-    private static final float TIP_EXTRA_MIN = 1.0F;
-    private static final float TIP_EXTRA_MAX = 2.0F;
-    private static final float PRESS_EASE = 0.45F;
+    // * Shared with the Super Soaker
+    public static final float MIN_SPIN = 3.0F;
+    public static final float MAX_SPIN = 40.0F;
+    public static final float SPIN_EASE = 0.15F;
+    public static final float NOZZLE_PRESS = 1.0F;
+    public static final float TIP_EXTRA_MIN = 1.0F;
+    public static final float TIP_EXTRA_MAX = 2.0F;
+    public static final float PRESS_EASE = 0.45F;
 
     private final IFluidHandler intake = new Intake();
     private final NozzleProcessing.BlockProgress spoutProgress = new NozzleProcessing.BlockProgress();
@@ -129,7 +132,7 @@ public class PressureNozzleBlockEntity extends SmartBlockEntity implements IHave
                 NozzleSpray.tick(this.level, this.worldPosition, this.getFacing(), TIP_FACE - this.tipPress / 16.0,
                         this.fluid, this.flow, FULL_FLOW);
                 this.processingParticles();
-                NozzleSpraySound.tick(this, TIP_FACE);
+                NozzleSpraySound.tick(this);
             }
             return;
         }
@@ -198,12 +201,24 @@ public class PressureNozzleBlockEntity extends SmartBlockEntity implements IHave
         return this.flow;
     }
 
+    @Override
     public FluidStack getSprayFluid() {
         return this.fluid;
     }
 
+    @Override
     public boolean isSpraying() {
         return this.spraying;
+    }
+
+    @Override
+    public float getSprayFraction() {
+        return Mth.clamp(this.flow / FULL_FLOW, 0.0F, 1.0F);
+    }
+
+    @Override
+    public Vec3 getSprayTip() {
+        return NozzleJet.aim(this.level, this.worldPosition, this.getFacing(), TIP_FACE).start();
     }
 
     private final class Intake implements IFluidHandler {

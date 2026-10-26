@@ -7,6 +7,7 @@ BLOCKS AND ITEMS:
 - Hose Winch: Fluid version of the Rope Winch. When a Magnetic Hose Connector is attached, powering the Winch powers the connector.
 - Fluid Quick-Connect: A placeable fluid port. Carry a connector close and it locks on.
 - Pressure Nozzle: Place on a Hose Connector, then carry it and hold attack to spray any fluid.
+- Super Soaker: A Potato Cannon with a Pressure Nozzle for a barrel. Holds up to 8000mB of any fluid.
 
 FLUIDS:
 - Plant Food: A thick, nutritious green goo made by mixing Tree Fertilizer and Sugar with water.
