@@ -1,0 +1,23 @@
+{
+	"parent": "simulatedhoses:item/super_soaker/item",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "simulatedhoses:item/super_soaker",
+		"particle": "create:block/copper_casing"
+	},
+	"elements": [
+		{
+			"from": [7, 7.5, 0],
+			"to": [9, 9.5, 1.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 2, -0.5]},
+			"faces": {
+				"north": {"uv": [9.5, 1.75, 10.5, 2.75], "texture": "#1"},
+				"east": {"uv": [8.25, 1.75, 9.25, 2.5], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [9.5, 1.75, 10.5, 2.75], "texture": "#1"},
+				"west": {"uv": [9.25, 2.5, 8.25, 1.75], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [9.25, 1.75, 8.25, 2.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [8.25, 1.75, 9.25, 2.5], "rotation": 180, "texture": "#1"}
+			}
+		}
+	]
+}
