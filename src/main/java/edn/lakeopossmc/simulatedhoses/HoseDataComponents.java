@@ -3,6 +3,7 @@ package edn.lakeopossmc.simulatedhoses;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.DyeColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -19,10 +20,18 @@ public final class HoseDataComponents {
                     builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC)
             );
 
+    // * Fluid in a Super Soaker's tank
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> SOAKER_FLUID =
             COMPONENTS.registerComponentType(
                     "soaker_fluid",
                     builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
+            );
+
+    // * The colour a Super Soaker's is dyed, with Bits 'n' Dyes
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> SOAKER_COLOR =
+            COMPONENTS.registerComponentType(
+                    "soaker_color",
+                    builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC)
             );
 
     private HoseDataComponents() {

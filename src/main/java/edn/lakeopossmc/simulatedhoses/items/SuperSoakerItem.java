@@ -127,17 +127,19 @@ public class SuperSoakerItem extends Item implements CustomArmPoseItem {
             return;
         }
         final int used = this.getUseDuration(stack, shooter) - remainingUseDuration;
+        // * Creative players never run dry or use anything up
+        final boolean creative = shooter instanceof final Player player && player.getAbilities().instabuild;
         for (final InteractionHand hand : InteractionHand.values()) {
             final ItemStack held = shooter.getItemInHand(hand);
             if (!(held.getItem() instanceof SuperSoakerItem)) {
                 continue;
             }
-            final FluidStack drained = tank(held).drain(DRAIN, IFluidHandler.FluidAction.EXECUTE);
+            final FluidStack drained = tank(held).drain(DRAIN, creative ? IFluidHandler.FluidAction.SIMULATE : IFluidHandler.FluidAction.EXECUTE);
             if (drained.isEmpty()) {
                 continue;
             }
             spray(serverLevel, shooter, hand, drained);
-            if (used % TICKS_PER_USE == 0 && !BacktankUtil.canAbsorbDamage(shooter, maxUses())) {
+            if (!creative && used % TICKS_PER_USE == 0 && !BacktankUtil.canAbsorbDamage(shooter, maxUses())) {
                 held.hurtAndBreak(1, shooter, LivingEntity.getSlotForHand(hand));
             }
         }

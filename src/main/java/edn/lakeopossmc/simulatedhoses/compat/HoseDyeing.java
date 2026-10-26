@@ -2,6 +2,7 @@ package edn.lakeopossmc.simulatedhoses.compat;
 
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesClient;
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesCompat;
+import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesSoaker;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
@@ -23,6 +24,7 @@ public final class HoseDyeing {
         BitsnDyesCompat.registerBehaviours();
         if (dist.isClient()) {
             BitsnDyesClient.init(modEventBus);
+            BitsnDyesSoaker.init();
         }
     }
 

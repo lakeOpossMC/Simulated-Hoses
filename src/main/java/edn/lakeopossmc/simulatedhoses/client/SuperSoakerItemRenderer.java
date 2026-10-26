@@ -18,7 +18,7 @@ public class SuperSoakerItemRenderer extends CustomRenderedItemModelRenderer {
     @Override
     protected void render(final ItemStack stack, final CustomRenderedItemModel model, final PartialItemModelRenderer renderer,
                           final ItemDisplayContext transformType, final PoseStack ms, final MultiBufferSource buffer, final int light, final int overlay) {
-        renderer.render(model.getOriginalModel(), light);
+        renderer.render(HoseDyedParts.dye(model.getOriginalModel(), stack), light);
         SuperSoakerFluidRenderer.render(stack, ms, buffer, light);
         SuperSoakerClient.tipDrawn(stack, transformType, ms);
 
@@ -38,17 +38,17 @@ public class SuperSoakerItemRenderer extends CustomRenderedItemModelRenderer {
         ms.translate(0.0F, COG_CENTER, 0.0F);
         ms.mulPose(Axis.ZP.rotationDegrees(angle));
         ms.translate(0.0F, -COG_CENTER, 0.0F);
-        renderer.render(HosePartialModels.SUPER_SOAKER_COG.get(), light);
+        renderer.render(HoseDyedParts.dye(HosePartialModels.SUPER_SOAKER_COG.get(), stack), light);
         ms.popPose();
 
         ms.pushPose();
         ms.translate(0.0F, 0.0F, rubber / 16.0F);
-        renderer.render(HosePartialModels.SUPER_SOAKER_RUBBER.get(), light);
+        renderer.render(HoseDyedParts.dye(HosePartialModels.SUPER_SOAKER_RUBBER.get(), stack), light);
         ms.popPose();
 
         ms.pushPose();
         ms.translate(0.0F, 0.0F, tip / 16.0F);
-        renderer.render(HosePartialModels.SUPER_SOAKER_TIP.get(), light);
+        renderer.render(HoseDyedParts.dye(HosePartialModels.SUPER_SOAKER_TIP.get(), stack), light);
         ms.popPose();
     }
 }

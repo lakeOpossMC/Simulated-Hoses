@@ -41,6 +41,7 @@ public class SimulatedHosesMod {
         HoseFluids.register(modEventBus);
         HoseEffects.register(modEventBus);
         HoseDataComponents.register(modEventBus);
+        HoseRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(HoseCommonEvents::registerCapabilities);
