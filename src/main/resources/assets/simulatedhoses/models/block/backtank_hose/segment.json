@@ -1,0 +1,21 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"0": "create:block/hose",
+		"particle": "create:block/hose"
+	},
+	"elements": [
+		{
+			"from": [6.975, 0, 6.975],
+			"to": [9.025, 16, 9.025],
+			"faces": {
+				"north": {"uv": [13, 0, 15, 4], "texture": "#0"},
+				"east": {"uv": [13, 0, 15, 4], "texture": "#0"},
+				"south": {"uv": [13, 0, 15, 4], "texture": "#0"},
+				"west": {"uv": [13, 0, 15, 4], "texture": "#0"},
+				"up": {"uv": [13, 0, 15, 2], "texture": "#0"},
+				"down": {"uv": [13, 0, 15, 2], "texture": "#0"}
+			}
+		}
+	]
+}
