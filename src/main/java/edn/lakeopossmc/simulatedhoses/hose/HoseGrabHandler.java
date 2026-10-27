@@ -270,6 +270,9 @@ public final class HoseGrabHandler {
             Quaterniond orientation = grab.orientation;
             if (grab.nozzleFacing != null && grab.nozzleAim != null) {
                 orientation = aimAlong(subLevel, grab.nozzleFacing, grab.nozzleAim.subtract(goal));
+            } else if (orientation == null && grab.level.getBlockEntity(grab.pos) instanceof final HoseConnectorBlockEntity connector) {
+                // * A carried connector holds its flange out ahead, until it's turned by hand
+                orientation = aimAlong(subLevel, connector.getFlangeDirection(), player.getLookAngle());
             }
             final boolean rotated = orientation != null;
             grab.constraint = physicsSystem.getPipeline().addConstraint(null, (PhysicsPipelineBody) subLevel,
