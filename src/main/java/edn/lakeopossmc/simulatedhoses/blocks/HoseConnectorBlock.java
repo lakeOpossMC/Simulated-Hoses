@@ -73,7 +73,7 @@ public class HoseConnectorBlock extends AbstractDirectionalAxisBlock implements 
 
     @Override
     public VoxelShape getSubLevelCollisionShape(final BlockGetter level, final BlockState state) {
-        return HoseShapes.THIN_COLLIDER.get(state.getValue(FACING), state.getValue(AXIS_ALONG_FIRST_COORDINATE));
+        return HoseShapes.CONNECTOR_COLLIDER.get(state.getValue(FACING), state.getValue(AXIS_ALONG_FIRST_COORDINATE));
     }
 
     @Override

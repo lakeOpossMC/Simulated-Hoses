@@ -28,6 +28,10 @@ public final class HoseShapes {
             Block.box(1, 0, 1, 15, 0.25, 15)
     );
 
+    public static final DirectionalAxisShaper CONNECTOR_COLLIDER = DirectionalAxisShaper.make(
+            Block.box(3, 0, 3, 13, 2, 13)
+    );
+
     public static final DirectionalAxisShaper MAGNETIC_COLLIDER = DirectionalAxisShaper.make(
             Block.box(3, 0, 3, 13, 2, 13)
     );
