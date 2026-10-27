@@ -56,6 +56,7 @@ public class FluidQuickConnectBlockEntity extends SmartBlockEntity implements Ho
     private static final double CAPTURE_RANGE = 0.5;
     private static final double CAPTURE_COS = Math.cos(Math.toRadians(40.0));
     private static final double BREAK_DISTANCE = 1.0;
+    private static final double RELOCK_DISTANCE = 3.0;
     private static final int LOCK_TICKS = 6;
     private static final int POP_COOLDOWN = 10;
     private static final int SYNC_INTERVAL = 10;
@@ -242,6 +243,11 @@ public class FluidQuickConnectBlockEntity extends SmartBlockEntity implements Ho
     private void validateCoupling() {
         final HoseConnectorBlockEntity connector = this.getCoupledConnector();
         if (connector == null) {
+            // * Not loaded in yet, or unloaded first. Wait for it rather than letting go, unless retracted
+            if (!this.level.isLoaded(this.coupledPos) && !this.isRetracted()) {
+                this.removeLock();
+                return;
+            }
             // * Connector broken or gone
             this.clearCoupling(null);
             return;
@@ -250,9 +256,15 @@ public class FluidQuickConnectBlockEntity extends SmartBlockEntity implements Ho
             this.pop(false);
             return;
         }
-        // * Locks are not saved, so put it back after a reload
+        // * Locks are not saved, so put it back after a reload, easing it in if it drifted
         if (this.lock == null && this.lockSmoother == null) {
-            this.createLock(connector, true);
+            final double drift = connector.worldFlangePosition().distance(this.worldPortPosition());
+            if (drift > RELOCK_DISTANCE) {
+                this.pop(true);
+                return;
+            }
+            this.createLock(connector, drift < 0.05);
+            return;
         }
         if (this.lockSmoother == null && connector.worldFlangePosition().distance(this.worldPortPosition()) > BREAK_DISTANCE) {
             this.pop(true);
