@@ -37,19 +37,20 @@ import java.util.List;
 public final class FluidBacktanks {
     // * How fast the hose refills a held Super Soaker
     private static final int FEED_PER_TICK = 100;
-    private static final String[] KEPT_TAGS = {"Air", "Timer", "CapacityEnchantment", "CustomName", "Components"};
+    private static final String[] KEPT_TAGS = {"Air", "Timer", "CapacityEnchantment", "CustomName", "Components", "Tank", "SecondTank",
+            "Feed"};
 
     //#region // --- FITTING TANKS --- //
     private static List<List<Item>> itemLadders() {
         return List.of(
                 List.of(AllItems.COPPER_BACKTANK.get(), HoseItems.COPPER_FLUID_BACKTANK.get()),
-                List.of(AllItems.NETHERITE_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get()));
+                List.of(AllItems.NETHERITE_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get(), HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get()));
     }
 
     private static List<List<Block>> blockLadders() {
         return List.of(
                 List.of(AllBlocks.COPPER_BACKTANK.get(), HoseBlocks.COPPER_FLUID_BACKTANK.get()),
-                List.of(AllBlocks.NETHERITE_BACKTANK.get(), HoseBlocks.NETHERITE_FLUID_BACKTANK.get()));
+                List.of(AllBlocks.NETHERITE_BACKTANK.get(), HoseBlocks.NETHERITE_FLUID_BACKTANK.get(), HoseBlocks.NETHERITE_DUAL_FLUID_BACKTANK.get()));
     }
 
     @Nullable
@@ -118,6 +119,7 @@ public final class FluidBacktanks {
     public static void fillCreativeBacktanks(final BuildCreativeModeTabContentsEvent event) {
         fillCreative(event, HoseItems.COPPER_FLUID_BACKTANK.get());
         fillCreative(event, HoseItems.NETHERITE_FLUID_BACKTANK.get());
+        fillCreative(event, HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get());
     }
 
     private static void fillCreative(final BuildCreativeModeTabContentsEvent event, final Item item) {
@@ -149,14 +151,20 @@ public final class FluidBacktanks {
             if (!(soaker.getItem() instanceof SuperSoakerItem)) {
                 continue;
             }
-            final FluidStack stored = FluidBacktankItem.getFluid(backtank);
-            if (stored.isEmpty()) {
-                return;
-            }
             final IFluidHandlerItem soakerTank = SuperSoakerItem.tank(soaker);
-            final int room = soakerTank.fill(stored.copyWithAmount(Math.min(FEED_PER_TICK, stored.getAmount())), IFluidHandler.FluidAction.SIMULATE);
-            if (room > 0) {
-                soakerTank.fill(FluidBacktankItem.tank(backtank).drain(room, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+            final BacktankTanks tanks = FluidBacktankItem.tanks(backtank);
+            final int[] order = FluidBacktankItem.pullMode(backtank) == FluidBacktankItem.PULL_BOTH
+                    ? new int[]{FluidBacktankItem.tankBeside(player, hand)} : tanks.drainable();
+            for (final int tank : order) {
+                final FluidStack stored = tanks.getFluidInTank(tank);
+                if (stored.isEmpty()) {
+                    continue;
+                }
+                final int room = soakerTank.fill(stored.copyWithAmount(Math.min(FEED_PER_TICK, stored.getAmount())), IFluidHandler.FluidAction.SIMULATE);
+                if (room > 0) {
+                    soakerTank.fill(tanks.tank(tank).drain(room, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    break;
+                }
             }
         }
     }

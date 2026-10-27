@@ -1,8 +1,10 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
@@ -26,13 +28,25 @@ public final class HoseDataComponents {
                     builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
             );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> BACKTANK_SECOND_FLUID =
+            COMPONENTS.registerComponentType(
+                    "backtank_second_fluid",
+                    builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
+            );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> BACKTANK_FEED =
+            COMPONENTS.registerComponentType(
+                    "backtank_feed",
+                    builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT)
+            );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> SOAKER_FLUID =
             COMPONENTS.registerComponentType(
                     "soaker_fluid",
                     builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
             );
 
-    // * The colour a Super Soaker's copper is dyed, with Bits 'n' Dyes
+    // * The colour a Super Soaker is dyed, with Bits 'n' Dyes
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> SOAKER_COLOR =
             COMPONENTS.registerComponentType(
                     "soaker_color",

@@ -59,7 +59,8 @@ public final class HoseBlockEntities {
                     "fluid_backtank",
                     () -> BlockEntityType.Builder.of(
                             (pos, state) -> new FluidBacktankBlockEntity(HoseBlockEntities.FLUID_BACKTANK.get(), pos, state),
-                            HoseBlocks.COPPER_FLUID_BACKTANK.get(), HoseBlocks.NETHERITE_FLUID_BACKTANK.get()).build(null));
+                            HoseBlocks.COPPER_FLUID_BACKTANK.get(), HoseBlocks.NETHERITE_FLUID_BACKTANK.get(),
+                            HoseBlocks.NETHERITE_DUAL_FLUID_BACKTANK.get()).build(null));
 
     private HoseBlockEntities() {
     }

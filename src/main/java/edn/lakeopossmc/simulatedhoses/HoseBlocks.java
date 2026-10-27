@@ -57,12 +57,17 @@ public final class HoseBlocks {
 
     public static final DeferredBlock<FluidBacktankBlock> COPPER_FLUID_BACKTANK = BLOCKS.register(
             "copper_fluid_backtank",
-            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), AllBlocks.COPPER_BACKTANK)
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), 1, AllBlocks.COPPER_BACKTANK)
     );
 
     public static final DeferredBlock<FluidBacktankBlock> NETHERITE_FLUID_BACKTANK = BLOCKS.register(
             "netherite_fluid_backtank",
-            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK), AllBlocks.NETHERITE_BACKTANK)
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK), 1, AllBlocks.NETHERITE_BACKTANK)
+    );
+
+    public static final DeferredBlock<FluidBacktankBlock> NETHERITE_DUAL_FLUID_BACKTANK = BLOCKS.register(
+            "netherite_dual_fluid_backtank",
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK), 2, AllBlocks.NETHERITE_BACKTANK)
     );
 
     public static final DeferredBlock<PlantFoodBlock> PLANT_FOOD = BLOCKS.register(

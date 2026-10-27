@@ -19,6 +19,7 @@ public final class HoseSimulatedTab {
         addItem(HoseItems.SUPER_SOAKER.get());
         addItem(HoseItems.COPPER_FLUID_BACKTANK.get());
         addItem(HoseItems.NETHERITE_FLUID_BACKTANK.get());
+        addItem(HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get());
         addItem(HoseItems.HOSE_COUPLER.get());
         addItem(HoseItems.PLANT_FOOD_BUCKET.get());
     }

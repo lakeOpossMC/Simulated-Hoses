@@ -32,8 +32,8 @@ public final class HoseCommonEvents {
                 HoseItems.SUPER_SOAKER.get());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.FLUID_BACKTANK.get(),
                 (be, side) -> be.getFluidHandler(side));
-        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> FluidBacktankItem.tank(stack),
-                HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get());
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> FluidBacktankItem.tanks(stack),
+                HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get(), HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get());
     }
 
     // * Drops dead magnet pairs and checks live ones for coupling

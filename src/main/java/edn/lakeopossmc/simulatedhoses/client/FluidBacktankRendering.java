@@ -23,6 +23,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.function.IntFunction;
 
 // --- FLUID IN THE FLUID BACKTANK --- //
 public final class FluidBacktankRendering {
@@ -38,11 +39,20 @@ public final class FluidBacktankRendering {
     private static final float CHAMBER_Z1 = 10.0F - INSET;
     private static final Set<Direction> WINDOW_FACES = EnumSet.complementOf(EnumSet.of(Direction.EAST));
     private static final Set<Direction> CHAMBER_FACES = EnumSet.complementOf(EnumSet.of(Direction.WEST));
+    private static final Set<Direction> MIRRORED_WINDOW_FACES = EnumSet.complementOf(EnumSet.of(Direction.WEST));
+    private static final Set<Direction> MIRRORED_CHAMBER_FACES = EnumSet.complementOf(EnumSet.of(Direction.EAST));
     private static final float MIN_HEIGHT = 0.5F;
     private static final float TILE = 8.0F;
 
-    public static void renderFluid(final FluidStack fluid, final int capacity, final Direction facing, final PoseStack ms,
-                                   final MultiBufferSource buffer, final int light) {
+    public static void renderTanks(final IntFunction<FluidStack> fluids, final int tankCount, final int capacity, final Direction facing,
+                                   final PoseStack ms, final MultiBufferSource buffer, final int light) {
+        for (int tank = 0; tank < tankCount; tank++) {
+            renderFluid(fluids.apply(tank), capacity, facing, tank == 1, ms, buffer, light);
+        }
+    }
+
+    public static void renderFluid(final FluidStack fluid, final int capacity, final Direction facing, final boolean mirrored,
+                                   final PoseStack ms, final MultiBufferSource buffer, final int light) {
         if (fluid.isEmpty()) {
             return;
         }
@@ -50,10 +60,17 @@ public final class FluidBacktankRendering {
         ms.translate(0.5F, 0.5F, 0.5F);
         ms.mulPose(Axis.YP.rotationDegrees(-modelTurn(facing)));
         ms.translate(-0.5F, -0.5F, -0.5F);
-        WindowFluidRenderer.render(fluid, capacity, WINDOW_X0, Y0, WINDOW_Z0, CHAMBER_X0, Y1, WINDOW_Z1, MIN_HEIGHT, TILE,
-                WINDOW_FACES, ms, buffer, light);
-        WindowFluidRenderer.render(fluid, capacity, CHAMBER_X0, Y0, CHAMBER_Z0, CHAMBER_X1, Y1, CHAMBER_Z1, MIN_HEIGHT, TILE,
-                CHAMBER_FACES, ms, buffer, light);
+        if (mirrored) {
+            WindowFluidRenderer.render(fluid, capacity, 16.0F - CHAMBER_X0, Y0, WINDOW_Z0, 16.0F - WINDOW_X0, Y1, WINDOW_Z1, MIN_HEIGHT, TILE,
+                    MIRRORED_WINDOW_FACES, ms, buffer, light);
+            WindowFluidRenderer.render(fluid, capacity, 16.0F - CHAMBER_X1, Y0, CHAMBER_Z0, 16.0F - CHAMBER_X0, Y1, CHAMBER_Z1, MIN_HEIGHT, TILE,
+                    MIRRORED_CHAMBER_FACES, ms, buffer, light);
+        } else {
+            WindowFluidRenderer.render(fluid, capacity, WINDOW_X0, Y0, WINDOW_Z0, CHAMBER_X0, Y1, WINDOW_Z1, MIN_HEIGHT, TILE,
+                    WINDOW_FACES, ms, buffer, light);
+            WindowFluidRenderer.render(fluid, capacity, CHAMBER_X0, Y0, CHAMBER_Z0, CHAMBER_X1, Y1, CHAMBER_Z1, MIN_HEIGHT, TILE,
+                    CHAMBER_FACES, ms, buffer, light);
+        }
         ms.popPose();
     }
 
@@ -76,8 +93,9 @@ public final class FluidBacktankRendering {
         protected void renderSafe(final BacktankBlockEntity be, final float partialTicks, final PoseStack ms, final MultiBufferSource buffer,
                                   final int light, final int overlay) {
             super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
-            if (be instanceof final FluidBacktankBlockEntity tank) {
-                renderFluid(tank.getFluid(), tank.getCapacity(), be.getBlockState().getValue(BacktankBlock.HORIZONTAL_FACING), ms, buffer, light);
+            if (be instanceof final FluidBacktankBlockEntity tanks) {
+                renderTanks(tanks::getFluid, tanks.tankCount(), tanks.getCapacity(), be.getBlockState().getValue(BacktankBlock.HORIZONTAL_FACING),
+                        ms, buffer, light);
             }
         }
     }
@@ -85,7 +103,8 @@ public final class FluidBacktankRendering {
 
     //#region // --- ITEM --- //
     public static void registerExtensions(final RegisterClientExtensionsEvent event) {
-        for (final Item item : new Item[]{HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get()}) {
+        for (final Item item : new Item[]{HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get(),
+                HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get()}) {
             event.registerItem(SimpleCustomRenderer.create(item, new ItemRenderer()), item);
         }
     }
@@ -98,7 +117,8 @@ public final class FluidBacktankRendering {
             renderer.render(model.getOriginalModel(), light);
             ms.pushPose();
             ms.translate(-0.5F, -0.5F, -0.5F);
-            renderFluid(FluidBacktankItem.getFluid(stack), FluidBacktankItem.capacity(stack), Direction.NORTH, ms, buffer, light);
+            renderTanks(tank -> FluidBacktankItem.getFluid(stack, tank), FluidBacktankItem.tankCount(stack), FluidBacktankItem.capacity(stack),
+                    Direction.NORTH, ms, buffer, light);
             ms.popPose();
         }
     }

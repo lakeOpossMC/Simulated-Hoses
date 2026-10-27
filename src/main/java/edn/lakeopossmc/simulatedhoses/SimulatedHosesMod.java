@@ -5,6 +5,7 @@ import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.ryanhcode.sable.platform.SableEventPlatform;
+import edn.lakeopossmc.simulatedhoses.backtank.BacktankFeed;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktanks;
 import edn.lakeopossmc.simulatedhoses.backtank.StowedSoakers;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
@@ -53,6 +54,7 @@ public class SimulatedHosesMod {
         modEventBus.addListener(PlantFoodCoating::registerPacket);
         modEventBus.addListener(HoseCarryPose::registerPacket);
         modEventBus.addListener(StowedSoakers::registerPacket);
+        modEventBus.addListener(BacktankFeed::registerPacket);
         modEventBus.addListener(FluidBacktanks::fillCreativeBacktanks);
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> HoseGrabHandler.serverTick());
 
@@ -87,6 +89,7 @@ public class SimulatedHosesMod {
             BlockStressValues.IMPACTS.register(HoseBlocks.HOSE_WINCH.get(), () -> WINCH_STRESS_IMPACT);
             BlockStressValues.IMPACTS.register(HoseBlocks.COPPER_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
             BlockStressValues.IMPACTS.register(HoseBlocks.NETHERITE_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
+            BlockStressValues.IMPACTS.register(HoseBlocks.NETHERITE_DUAL_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
             TooltipModifier.REGISTRY.register(HoseItems.HOSE_WINCH.get(), TooltipModifier.mapNull(KineticStats.create(HoseItems.HOSE_WINCH.get())));
             HoseSimulatedTab.register();
         });

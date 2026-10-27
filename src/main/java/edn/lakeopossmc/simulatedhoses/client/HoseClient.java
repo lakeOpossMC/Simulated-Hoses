@@ -70,6 +70,7 @@ public final class HoseClient {
             StowedSoakers.clientReset();
         });
         NeoForge.EVENT_BUS.addListener(HoseClient::onClickInput);
+        NeoForge.EVENT_BUS.addListener(BacktankFeedClient::onScroll);
         NeoForge.EVENT_BUS.addListener((RenderHandEvent event) -> NozzleArmRenderer.render(event, grab != null && grab.isCarryingNozzle(),
                 grab != null ? grab.getNozzleHeldTicks(event.getPartialTick()) : 0.0F));
     }

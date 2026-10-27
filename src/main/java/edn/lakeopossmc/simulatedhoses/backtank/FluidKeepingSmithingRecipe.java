@@ -19,7 +19,8 @@ import java.util.function.Supplier;
 
 // --- NETHERITE CHESTPLATE + FLUID BACKTANK --- //
 public class FluidKeepingSmithingRecipe extends SmithingTransformRecipe {
-    private static final List<Supplier<? extends DataComponentType<?>>> KEPT = List.of(HoseDataComponents.BACKTANK_FLUID);
+    private static final List<Supplier<? extends DataComponentType<?>>> KEPT = List.of(
+            HoseDataComponents.BACKTANK_FLUID, HoseDataComponents.BACKTANK_SECOND_FLUID, HoseDataComponents.BACKTANK_FEED);
 
     private final Ingredient template;
     private final Ingredient base;

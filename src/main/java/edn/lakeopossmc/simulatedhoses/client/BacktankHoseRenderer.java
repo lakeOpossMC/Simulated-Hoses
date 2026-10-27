@@ -51,6 +51,9 @@ public final class BacktankHoseRenderer {
     private static final Vector3f FIRST_PERSON_END = new Vector3f(0.0F, -2.0F, 1.6F);
     private static final Vector3f TANK_END = new Vector3f(16.0F - 3.0F, 1.0F, 16.0F - 8.0F).mul(PIXEL);
     private static final Vector3f MIDDLE_END = new Vector3f(8.0F, 0.0F, 8.0F).mul(PIXEL);
+    private static final Vector3f[][] TANK_BOXES = {
+            {new Vector3f(11, 1, 6).mul(PIXEL), new Vector3f(15, 11, 10).mul(PIXEL)},
+            {new Vector3f(1, 1, 6).mul(PIXEL), new Vector3f(5, 11, 10).mul(PIXEL)}};
 
     //#region // --- ROPE SETTINGS --- //
     private static final double SEGMENT = 0.25;
@@ -62,6 +65,7 @@ public final class BacktankHoseRenderer {
     private static final long STALE_NANOS = 500_000_000L;
     private static final double CLEARANCE = 1.5 / 16.0;
     private static final Vector3f STOWED_AT = new Vector3f(1.5F, 6.0F, 8.0F).mul(1.0F / 16.0F);
+    private static final Vector3f STOWED_ON_BACK_AT = new Vector3f(8.0F, 6.0F, 1.5F).mul(1.0F / 16.0F);
     private static final float STOWED_SCALE = 1.0F;
     private static final int STOWED_SHOWN = 1;
     private static final float STOWED_STEP = 5.0F / 16.0F;
@@ -149,11 +153,13 @@ public final class BacktankHoseRenderer {
                 SOAKER_ENDS.remove(player);
                 return;
             }
+            final ItemStack worn = player.getItemBySlot(EquipmentSlot.CHEST);
+            final int tankCount = FluidBacktankItem.tankCount(worn);
+            final boolean fromMiddle = worn.getItem() instanceof FluidBacktankItem.Netherite;
             renderWornFluid(ms, buffer, light, player, model);
-            final boolean fromMiddle = player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof FluidBacktankItem.Netherite;
             // * A hose to each soaker in a hand, and one to the stowed soaker
             final Captured[] held = SOAKER_ENDS.remove(player);
-            final Vector3f stowedEnd = renderStowed(ms, buffer, light, player, model);
+            final Vector3f stowedEnd = renderStowed(ms, buffer, light, player, model, tankCount > 1);
             final Vector3f[] ends = new Vector3f[3];
             boolean holding = false;
             for (int hand = 0; hand < 2; hand++) {
@@ -191,7 +197,9 @@ public final class BacktankHoseRenderer {
             ms.popPose();
             final Matrix4f toBody = new Matrix4f(body).invert();
             obstacles.add(new Obstacle(backtank, new Vector3f(4, 0, 4).mul(PIXEL), new Vector3f(12, 12, 12).mul(PIXEL)));
-            obstacles.add(new Obstacle(backtank, new Vector3f(11, 1, 6).mul(PIXEL), new Vector3f(15, 11, 10).mul(PIXEL)));
+            for (int tank = 0; tank < tankCount; tank++) {
+                obstacles.add(new Obstacle(backtank, TANK_BOXES[tank][0], TANK_BOXES[tank][1]));
+            }
 
             final Vec3 start = world(backtank.transformPosition(new Vector3f(fromMiddle ? MIDDLE_END : TANK_END)), camera);
             final Rope[] ropes = ROPES.computeIfAbsent(player, p -> new Rope[3]);
@@ -223,14 +231,14 @@ public final class BacktankHoseRenderer {
         model.body.translateAndRotate(ms);
         ms.translate(-0.5F, 10.0F / 16.0F, 1.0F);
         ms.scale(1.0F, -1.0F, -1.0F);
-        FluidBacktankRendering.renderFluid(FluidBacktankItem.getFluid(backtank), FluidBacktankItem.capacity(backtank), Direction.SOUTH,
-                ms, buffer, light);
+        FluidBacktankRendering.renderTanks(tank -> FluidBacktankItem.getFluid(backtank, tank), FluidBacktankItem.tankCount(backtank),
+                FluidBacktankItem.capacity(backtank), Direction.SOUTH, ms, buffer, light);
         ms.popPose();
     }
 
     @Nullable
     private static Vector3f renderStowed(final PoseStack ms, final MultiBufferSource buffer, final int light, final Player player,
-                                         final HumanoidModel<?> model) {
+                                         final HumanoidModel<?> model, final boolean onBack) {
         final List<ItemStack> stowed = StowedSoakers.stowedOn(player);
         Vector3f hoseEnd = null;
         for (int i = 0; i < Math.min(stowed.size(), STOWED_SHOWN); i++) {
@@ -238,8 +246,12 @@ public final class BacktankHoseRenderer {
             model.body.translateAndRotate(ms);
             ms.translate(-0.5F, 10.0F / 16.0F, 1.0F);
             ms.scale(1.0F, -1.0F, -1.0F);
-            ms.translate(STOWED_AT.x - i * STOWED_STEP, STOWED_AT.y, STOWED_AT.z);
-            ms.mulPose(Axis.YP.rotationDegrees(180.0F));
+            if (onBack) {
+                ms.translate(STOWED_ON_BACK_AT.x, STOWED_ON_BACK_AT.y, STOWED_ON_BACK_AT.z - i * STOWED_STEP);
+            } else {
+                ms.translate(STOWED_AT.x - i * STOWED_STEP, STOWED_AT.y, STOWED_AT.z);
+            }
+            ms.mulPose(Axis.YP.rotationDegrees(onBack ? 270.0F : 180.0F));
             ms.mulPose(Axis.XP.rotationDegrees(-90.0F));
             ms.scale(STOWED_SCALE, STOWED_SCALE, STOWED_SCALE);
             ms.translate(0.0F, 0.0F, -SOAKER_MIDDLE);
