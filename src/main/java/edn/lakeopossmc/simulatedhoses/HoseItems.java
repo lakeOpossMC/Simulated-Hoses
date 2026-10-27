@@ -39,7 +39,17 @@ public final class HoseItems {
 
     public static final DeferredItem<FluidBacktankItem> COPPER_FLUID_BACKTANK = ITEMS.register(
             "copper_fluid_backtank",
-            () -> new FluidBacktankItem(new Item.Properties(), COPPER_FLUID_BACKTANK_PLACEABLE)
+            () -> FluidBacktankItem.copper(new Item.Properties(), COPPER_FLUID_BACKTANK_PLACEABLE)
+    );
+
+    public static final DeferredItem<BacktankItem.BacktankBlockItem> NETHERITE_FLUID_BACKTANK_PLACEABLE = ITEMS.register(
+            "netherite_fluid_backtank_placeable",
+            () -> new BacktankItem.BacktankBlockItem(HoseBlocks.NETHERITE_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK::get, new Item.Properties())
+    );
+
+    public static final DeferredItem<FluidBacktankItem> NETHERITE_FLUID_BACKTANK = ITEMS.register(
+            "netherite_fluid_backtank",
+            () -> FluidBacktankItem.netherite(new Item.Properties(), NETHERITE_FLUID_BACKTANK_PLACEABLE)
     );
 
     public static final DeferredItem<PlantFoodBucketItem> PLANT_FOOD_BUCKET = ITEMS.register(

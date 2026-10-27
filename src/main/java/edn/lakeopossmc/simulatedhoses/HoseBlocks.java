@@ -1,5 +1,6 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import com.simibubi.create.AllBlocks;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
@@ -56,7 +57,12 @@ public final class HoseBlocks {
 
     public static final DeferredBlock<FluidBacktankBlock> COPPER_FLUID_BACKTANK = BLOCKS.register(
             "copper_fluid_backtank",
-            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK))
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK), AllBlocks.COPPER_BACKTANK)
+    );
+
+    public static final DeferredBlock<FluidBacktankBlock> NETHERITE_FLUID_BACKTANK = BLOCKS.register(
+            "netherite_fluid_backtank",
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK), AllBlocks.NETHERITE_BACKTANK)
     );
 
     public static final DeferredBlock<PlantFoodBlock> PLANT_FOOD = BLOCKS.register(

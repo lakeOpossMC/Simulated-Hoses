@@ -86,6 +86,7 @@ public class SimulatedHosesMod {
             PressureNozzleBlock.registerAttachedCheck();
             BlockStressValues.IMPACTS.register(HoseBlocks.HOSE_WINCH.get(), () -> WINCH_STRESS_IMPACT);
             BlockStressValues.IMPACTS.register(HoseBlocks.COPPER_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
+            BlockStressValues.IMPACTS.register(HoseBlocks.NETHERITE_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
             TooltipModifier.REGISTRY.register(HoseItems.HOSE_WINCH.get(), TooltipModifier.mapNull(KineticStats.create(HoseItems.HOSE_WINCH.get())));
             HoseSimulatedTab.register();
         });

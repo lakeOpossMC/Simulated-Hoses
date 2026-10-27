@@ -50,6 +50,7 @@ public final class BacktankHoseRenderer {
     private static final Vector3f FIRST_PERSON_BEND = new Vector3f(0.0F, -0.9F, 0.7F);
     private static final Vector3f FIRST_PERSON_END = new Vector3f(0.0F, -2.0F, 1.6F);
     private static final Vector3f TANK_END = new Vector3f(16.0F - 3.0F, 1.0F, 16.0F - 8.0F).mul(PIXEL);
+    private static final Vector3f MIDDLE_END = new Vector3f(8.0F, 0.0F, 8.0F).mul(PIXEL);
 
     //#region // --- ROPE SETTINGS --- //
     private static final double SEGMENT = 0.25;
@@ -149,6 +150,7 @@ public final class BacktankHoseRenderer {
                 return;
             }
             renderWornFluid(ms, buffer, light, player, model);
+            final boolean fromMiddle = player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof FluidBacktankItem.Netherite;
             // * A hose to each soaker in a hand, and one to the stowed soaker
             final Captured[] held = SOAKER_ENDS.remove(player);
             final Vector3f stowedEnd = renderStowed(ms, buffer, light, player, model);
@@ -185,12 +187,13 @@ public final class BacktankHoseRenderer {
             ms.popPose();
             ms.pushPose();
             model.body.translateAndRotate(ms);
-            final Vec3 hip = world(ms.last().pose().transformPosition(new Vector3f(HIP)), camera);
+            final Matrix4f body = new Matrix4f(ms.last().pose());
             ms.popPose();
+            final Matrix4f toBody = new Matrix4f(body).invert();
             obstacles.add(new Obstacle(backtank, new Vector3f(4, 0, 4).mul(PIXEL), new Vector3f(12, 12, 12).mul(PIXEL)));
             obstacles.add(new Obstacle(backtank, new Vector3f(11, 1, 6).mul(PIXEL), new Vector3f(15, 11, 10).mul(PIXEL)));
 
-            final Vec3 start = world(backtank.transformPosition(new Vector3f(TANK_END)), camera);
+            final Vec3 start = world(backtank.transformPosition(new Vector3f(fromMiddle ? MIDDLE_END : TANK_END)), camera);
             final Rope[] ropes = ROPES.computeIfAbsent(player, p -> new Rope[3]);
             for (int i = 0; i < ends.length; i++) {
                 if (ends[i] == null) {
@@ -200,6 +203,8 @@ public final class BacktankHoseRenderer {
                 if (ropes[i] == null) {
                     ropes[i] = new Rope();
                 }
+                final float side = !fromMiddle || toBody.transformPosition(new Vector3f(ends[i])).x >= 0.0F ? 1.0F : -1.0F;
+                final Vec3 hip = world(body.transformPosition(new Vector3f(HIP).mul(side, 1.0F, 1.0F)), camera);
                 ropes[i].step(start, hip, world(ends[i], camera), player.getPosition(partialTick), obstacles, camera, player.getY());
                 final List<Vector3f> points = new ArrayList<>();
                 for (final Vec3 point : ropes[i].points) {

@@ -15,6 +15,7 @@ import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankItem;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -84,8 +85,9 @@ public final class FluidBacktankRendering {
 
     //#region // --- ITEM --- //
     public static void registerExtensions(final RegisterClientExtensionsEvent event) {
-        event.registerItem(SimpleCustomRenderer.create(HoseItems.COPPER_FLUID_BACKTANK.get(), new ItemRenderer()),
-                HoseItems.COPPER_FLUID_BACKTANK.get());
+        for (final Item item : new Item[]{HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get()}) {
+            event.registerItem(SimpleCustomRenderer.create(item, new ItemRenderer()), item);
+        }
     }
 
     private static final class ItemRenderer extends CustomRenderedItemModelRenderer {

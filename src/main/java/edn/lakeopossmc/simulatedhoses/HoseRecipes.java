@@ -1,6 +1,7 @@
 package edn.lakeopossmc.simulatedhoses;
 
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankRecipe;
+import edn.lakeopossmc.simulatedhoses.backtank.FluidKeepingSmithingRecipe;
 import edn.lakeopossmc.simulatedhoses.items.SuperSoakerDyeingRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -15,6 +16,9 @@ public final class HoseRecipes {
 
     public static final DeferredHolder<RecipeSerializer<?>, SimpleCraftingRecipeSerializer<FluidBacktankRecipe>> FLUID_BACKTANK =
             SERIALIZERS.register("fluid_backtank", () -> new SimpleCraftingRecipeSerializer<>(FluidBacktankRecipe::new));
+
+    public static final DeferredHolder<RecipeSerializer<?>, FluidKeepingSmithingRecipe.Serializer> FLUID_KEEPING_SMITHING =
+            SERIALIZERS.register("fluid_keeping_smithing", FluidKeepingSmithingRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, SimpleCraftingRecipeSerializer<SuperSoakerDyeingRecipe>> SUPER_SOAKER_DYEING =
             SERIALIZERS.register("super_soaker_dyeing", () -> new SimpleCraftingRecipeSerializer<>(SuperSoakerDyeingRecipe::new));

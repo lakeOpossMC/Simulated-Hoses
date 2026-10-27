@@ -1,6 +1,5 @@
 package edn.lakeopossmc.simulatedhoses.backtank;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.equipment.armor.BacktankBlock;
 import com.simibubi.create.content.equipment.armor.BacktankBlockEntity;
@@ -29,15 +28,18 @@ import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
-// --- PLACED COPPER BACKTANK WITH A FLUID TANK --- //
+// --- PLACED BACKTANK WITH A FLUID TANK --- //
 public class FluidBacktankBlock extends BacktankBlock {
     private static final float[] TANK_BOX = {1.0F, 6.0F, 5.0F, 10.0F};
 
     private final Map<Direction, VoxelShape> shapes = new EnumMap<>(Direction.class);
+    private final Supplier<? extends Block> plain;
 
-    public FluidBacktankBlock(final Properties properties) {
+    public FluidBacktankBlock(final Properties properties, final Supplier<? extends Block> plain) {
         super(properties);
+        this.plain = plain;
         for (final Direction facing : new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}) {
             this.shapes.put(facing, Shapes.or(AllShapes.BACKTANK, turned(TANK_BOX, facing)));
         }
@@ -61,9 +63,13 @@ public class FluidBacktankBlock extends BacktankBlock {
         return Block.box(Math.min(x0, x1), 1.0, Math.min(z0, z1), Math.max(x0, x1), 11.0, Math.max(z0, z1));
     }
 
+    public Block plain() {
+        return this.plain.get();
+    }
+
     @Override
     public String getDescriptionId() {
-        return AllBlocks.COPPER_BACKTANK.get().getDescriptionId();
+        return this.plain.get().getDescriptionId();
     }
 
     @Override

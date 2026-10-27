@@ -2,6 +2,7 @@ package edn.lakeopossmc.simulatedhoses.backtank;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllDataComponents;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.content.equipment.armor.BacktankBlock;
 import com.simibubi.create.content.equipment.armor.BacktankBlockEntity;
@@ -16,8 +17,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,19 +29,59 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 // --- FITTING AND FEEDING FLUID BACKTANKS --- //
 public final class FluidBacktanks {
+    // * How fast the hose refills a held Super Soaker
     private static final int FEED_PER_TICK = 100;
     private static final String[] KEPT_TAGS = {"Air", "Timer", "CapacityEnchantment", "CustomName", "Components"};
 
+    //#region // --- FITTING TANKS --- //
+    private static List<List<Item>> itemLadders() {
+        return List.of(
+                List.of(AllItems.COPPER_BACKTANK.get(), HoseItems.COPPER_FLUID_BACKTANK.get()),
+                List.of(AllItems.NETHERITE_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get()));
+    }
+
+    private static List<List<Block>> blockLadders() {
+        return List.of(
+                List.of(AllBlocks.COPPER_BACKTANK.get(), HoseBlocks.COPPER_FLUID_BACKTANK.get()),
+                List.of(AllBlocks.NETHERITE_BACKTANK.get(), HoseBlocks.NETHERITE_FLUID_BACKTANK.get()));
+    }
+
+    @Nullable
+    public static Item withMoreTanks(final Item backtank, final int added) {
+        return climb(itemLadders(), backtank, added);
+    }
+
+    @Nullable
+    public static Block withMoreTanks(final Block backtank, final int added) {
+        return climb(blockLadders(), backtank, added);
+    }
+
+    @Nullable
+    private static <T> T climb(final List<List<T>> ladders, final T from, final int steps) {
+        for (final List<T> ladder : ladders) {
+            final int at = ladder.indexOf(from);
+            if (at >= 0) {
+                return at + steps < ladder.size() ? ladder.get(at + steps) : null;
+            }
+        }
+        return null;
+    }
+
+    // * Right-click a placed backtank with a fluid tank to fit it
     public static void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
         final Player player = event.getEntity();
         final Level level = event.getLevel();
         final BlockPos pos = event.getPos();
         final ItemStack held = event.getItemStack();
         final BlockState state = level.getBlockState(pos);
-        if (player.isShiftKeyDown() || !held.is(AllBlocks.FLUID_TANK.asItem()) || !state.is(AllBlocks.COPPER_BACKTANK.get())) {
+        final Block fittedBlock = withMoreTanks(state.getBlock(), 1);
+        if (player.isShiftKeyDown() || !held.is(AllBlocks.FLUID_TANK.asItem()) || fittedBlock == null) {
             return;
         }
         event.setCanceled(true);
@@ -55,7 +98,7 @@ public final class FluidBacktanks {
             }
         }
 
-        final BlockState fitted = HoseBlocks.COPPER_FLUID_BACKTANK.get().defaultBlockState()
+        final BlockState fitted = fittedBlock.defaultBlockState()
                 .setValue(BacktankBlock.HORIZONTAL_FACING, state.getValue(BacktankBlock.HORIZONTAL_FACING))
                 .setValue(BlockStateProperties.WATERLOGGED, state.getValue(BlockStateProperties.WATERLOGGED));
         level.setBlockAndUpdate(pos, fitted);
@@ -70,8 +113,15 @@ public final class FluidBacktanks {
         }
     }
 
+    //#endregion
+
     public static void fillCreativeBacktanks(final BuildCreativeModeTabContentsEvent event) {
-        final ItemStack empty = new ItemStack(HoseItems.COPPER_FLUID_BACKTANK.get());
+        fillCreative(event, HoseItems.COPPER_FLUID_BACKTANK.get());
+        fillCreative(event, HoseItems.NETHERITE_FLUID_BACKTANK.get());
+    }
+
+    private static void fillCreative(final BuildCreativeModeTabContentsEvent event, final Item item) {
+        final ItemStack empty = new ItemStack(item);
         final boolean inTab = event.getParentEntries().contains(empty);
         final boolean inSearch = event.getSearchEntries().contains(empty);
         if (!inTab && !inSearch) {

@@ -1,0 +1,16 @@
+{
+  "type": "simulatedhoses:fluid_keeping_smithing",
+  "addition": {
+    "item": "simulatedhoses:copper_fluid_backtank"
+  },
+  "base": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "result": {
+    "count": 1,
+    "id": "simulatedhoses:netherite_fluid_backtank"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

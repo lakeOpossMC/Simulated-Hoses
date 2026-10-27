@@ -33,7 +33,7 @@ public final class HoseCommonEvents {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.FLUID_BACKTANK.get(),
                 (be, side) -> be.getFluidHandler(side));
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> FluidBacktankItem.tank(stack),
-                HoseItems.COPPER_FLUID_BACKTANK.get());
+                HoseItems.COPPER_FLUID_BACKTANK.get(), HoseItems.NETHERITE_FLUID_BACKTANK.get());
     }
 
     // * Drops dead magnet pairs and checks live ones for coupling

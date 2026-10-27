@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"simulatedhoses:copper_fluid_backtank"
+		"simulatedhoses:copper_fluid_backtank",
+		"simulatedhoses:netherite_fluid_backtank"
 	]
 }
