@@ -8,6 +8,10 @@ import edn.lakeopossmc.simulatedhoses.SimulatedHosesMod;
 public final class HosePartialModels {
     public static final PartialModel HOSE = block("hose/segment");
     public static final PartialModel HOSE_KNOT = block("hose/knot");
+    // * Smaller hose for the fluid backtank
+    public static final PartialModel BACKTANK_HOSE = block("backtank_hose/segment");
+    public static final PartialModel BACKTANK_HOSE_KNOT = block("backtank_hose/knot");
+    public static final PartialModel BACKTANK_HOSE_BAND = block("backtank_hose/band");
     public static final PartialModel HOSE_WINCH_COIL = block("hose_winch/coil");
     public static final PartialModel QUICK_CONNECT_EXTENDER = block("fluid_quick_connect/extender");
     public static final PartialModel QUICK_CONNECT_EXTENDER_POWERED = block("fluid_quick_connect/extender_powered");

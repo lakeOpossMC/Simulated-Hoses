@@ -1,5 +1,7 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import com.simibubi.create.content.equipment.armor.BacktankItem;
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankItem;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodBucketItem;
 import edn.lakeopossmc.simulatedhoses.items.HoseCouplerItem;
 import edn.lakeopossmc.simulatedhoses.items.SuperSoakerItem;
@@ -28,6 +30,16 @@ public final class HoseItems {
     public static final DeferredItem<SuperSoakerItem> SUPER_SOAKER = ITEMS.register(
             "super_soaker",
             () -> new SuperSoakerItem(new Item.Properties().durability(SuperSoakerItem.DURABILITY))
+    );
+
+    public static final DeferredItem<BacktankItem.BacktankBlockItem> COPPER_FLUID_BACKTANK_PLACEABLE = ITEMS.register(
+            "copper_fluid_backtank_placeable",
+            () -> new BacktankItem.BacktankBlockItem(HoseBlocks.COPPER_FLUID_BACKTANK.get(), HoseItems.COPPER_FLUID_BACKTANK::get, new Item.Properties())
+    );
+
+    public static final DeferredItem<FluidBacktankItem> COPPER_FLUID_BACKTANK = ITEMS.register(
+            "copper_fluid_backtank",
+            () -> new FluidBacktankItem(new Item.Properties(), COPPER_FLUID_BACKTANK_PLACEABLE)
     );
 
     public static final DeferredItem<PlantFoodBucketItem> PLANT_FOOD_BUCKET = ITEMS.register(

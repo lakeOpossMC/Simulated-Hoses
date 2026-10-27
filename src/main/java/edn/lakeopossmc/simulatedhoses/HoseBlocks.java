@@ -1,11 +1,13 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.MagneticHoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -50,6 +52,11 @@ public final class HoseBlocks {
     public static final DeferredBlock<PressureNozzleBlock> PRESSURE_NOZZLE = BLOCKS.register(
             "pressure_nozzle",
             () -> new PressureNozzleBlock(connectorProperties())
+    );
+
+    public static final DeferredBlock<FluidBacktankBlock> COPPER_FLUID_BACKTANK = BLOCKS.register(
+            "copper_fluid_backtank",
+            () -> new FluidBacktankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK))
     );
 
     public static final DeferredBlock<PlantFoodBlock> PLANT_FOOD = BLOCKS.register(

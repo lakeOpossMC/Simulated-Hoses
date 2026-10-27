@@ -160,6 +160,7 @@ public final class SuperSoakerClient {
                 if (hand.spraying) {
                     hand.spray();
                 }
+                hand.dripWhileFlowing();
             }
         }
     }
@@ -169,10 +170,22 @@ public final class SuperSoakerClient {
         private final InteractionHand hand;
         private FluidStack fluid = FluidStack.EMPTY;
         private boolean spraying;
+        private int lastAmount;
 
         private Hand(final Soaker soaker, final InteractionHand hand) {
             this.soaker = soaker;
             this.hand = hand;
+        }
+
+        private void dripWhileFlowing() {
+            final Player player = this.soaker.player;
+            final ItemStack held = player.getItemInHand(this.hand);
+            final FluidStack inSoaker = held.getItem() instanceof SuperSoakerItem ? SuperSoakerItem.getFluid(held) : FluidStack.EMPTY;
+            final boolean fed = inSoaker.getAmount() > this.lastAmount;
+            this.lastAmount = inSoaker.getAmount();
+            if ((fed || this.spraying) && BacktankHoseRenderer.hasHose(player)) {
+                BacktankHoseRenderer.drip(player.level(), player, this.hand, inSoaker);
+            }
         }
 
         private void spray() {

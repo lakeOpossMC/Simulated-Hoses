@@ -1,5 +1,6 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlockEntity;
@@ -52,6 +53,13 @@ public final class HoseBlockEntities {
                     () -> BlockEntityType.Builder.of(
                             (pos, state) -> new PressureNozzleBlockEntity(HoseBlockEntities.PRESSURE_NOZZLE.get(), pos, state),
                             HoseBlocks.PRESSURE_NOZZLE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidBacktankBlockEntity>> FLUID_BACKTANK =
+            BLOCK_ENTITY_TYPES.register(
+                    "fluid_backtank",
+                    () -> BlockEntityType.Builder.of(
+                            (pos, state) -> new FluidBacktankBlockEntity(HoseBlockEntities.FLUID_BACKTANK.get(), pos, state),
+                            HoseBlocks.COPPER_FLUID_BACKTANK.get()).build(null));
 
     private HoseBlockEntities() {
     }

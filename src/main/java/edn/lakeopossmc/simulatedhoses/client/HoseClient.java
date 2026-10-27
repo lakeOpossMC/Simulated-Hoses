@@ -1,7 +1,10 @@
 package edn.lakeopossmc.simulatedhoses.client;
 
+import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
+import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer;
 import dev.simulated_team.simulated.index.SimClickInteractions;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
+import edn.lakeopossmc.simulatedhoses.backtank.StowedSoakers;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
 import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -12,7 +15,11 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +37,8 @@ public final class HoseClient {
         modEventBus.addListener(PlantFoodCoatLayer::addLayers);
         modEventBus.addListener(PlantFoodVisionOverlay::register);
         modEventBus.addListener(SuperSoakerClient::registerExtensions);
+        modEventBus.addListener(FluidBacktankRendering::registerExtensions);
+        modEventBus.addListener(BacktankHoseRenderer::addLayers);
         modEventBus.addListener((RegisterClientReloadListenersEvent event) -> event.registerReloadListener(
                 (ResourceManagerReloadListener) manager -> {
                     PlantFoodVisionFilter.invalidate();
@@ -38,6 +47,10 @@ public final class HoseClient {
         // * Hold use with an empty hand to carry a connector
         modEventBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PlantFoodClient.setRenderLayers();
+            SimpleBlockEntityVisualizer.builder(HoseBlockEntities.FLUID_BACKTANK.get())
+                    .factory(SingleAxisRotatingVisual::backtank)
+                    .neverSkipVanillaRender()
+                    .apply();
             grab = new HoseGrabClientHandler();
             SimClickInteractions.register(grab);
         }));
@@ -47,11 +60,14 @@ public final class HoseClient {
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> SuperSoakerClient.tick());
         SuperSoakerClient.RENDER_HANDLER.registerListeners(NeoForge.EVENT_BUS);
         NeoForge.EVENT_BUS.addListener(PlantFoodLateBuffers::onRenderStage);
+        NeoForge.EVENT_BUS.addListener(BacktankHoseRenderer::onFrame);
         NeoForge.EVENT_BUS.addListener(SuperSoakerClient::onRenderStage);
         NeoForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut event) -> {
             PlantFoodCoating.clientReset();
             HoseCarryPose.clientReset();
             SuperSoakerClient.clientReset();
+            BacktankHoseRenderer.clientReset();
+            StowedSoakers.clientReset();
         });
         NeoForge.EVENT_BUS.addListener(HoseClient::onClickInput);
         NeoForge.EVENT_BUS.addListener((RenderHandEvent event) -> NozzleArmRenderer.render(event, grab != null && grab.isCarryingNozzle(),
@@ -72,6 +88,12 @@ public final class HoseClient {
         event.registerBlockEntityRenderer(HoseBlockEntities.HOSE_WINCH.get(), HoseWinchRenderer::new);
         event.registerBlockEntityRenderer(HoseBlockEntities.FLUID_QUICK_CONNECT.get(), FluidQuickConnectRenderer::new);
         event.registerBlockEntityRenderer(HoseBlockEntities.PRESSURE_NOZZLE.get(), PressureNozzleRenderer::new);
+        event.registerBlockEntityRenderer(HoseBlockEntities.FLUID_BACKTANK.get(), backtankRenderer());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static <T extends BlockEntity> BlockEntityRendererProvider<T> backtankRenderer() {
+        return context -> (BlockEntityRenderer) new FluidBacktankRendering.BlockRenderer(context);
     }
 
     private HoseClient() {

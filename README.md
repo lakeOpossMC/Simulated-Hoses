@@ -8,6 +8,7 @@ BLOCKS AND ITEMS:
 - Fluid Quick-Connect: A placeable fluid port. Carry a connector close and it locks on.
 - Pressure Nozzle: Place on a Hose Connector, then carry it and hold attack to spray any fluid.
 - Super Soaker: A Potato Cannon with a Pressure Nozzle for a barrel. Holds up to 8000mB of any fluid.
+- Fluid Backtank: Right-click a placed Backtank with a Fluid Tank, or craft them together, to add a 4000mB tank to its side. Useful for Super Soakers!
 
 FLUIDS:
 - Plant Food: A thick, nutritious green goo made by mixing Tree Fertilizer and Sugar with water.

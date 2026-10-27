@@ -1,6 +1,7 @@
 package edn.lakeopossmc.simulatedhoses.items;
 
 import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
+import com.simibubi.create.content.fluids.transfer.GenericItemFilling;
 import net.createmod.catnip.data.Pair;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -45,6 +46,39 @@ public final class FluidDeposits {
         }
         final SoundEvent sound = poured.getFirst().getFluid().getFluidType().getSound(poured.getFirst(), SoundActions.BUCKET_EMPTY);
         player.playSound(sound != null ? sound : SoundEvents.BUCKET_EMPTY, 0.8F, 1.0F);
+        return true;
+    }
+
+    // * The other way round
+    public static boolean draw(final ItemStack target, final IFluidHandlerItem tank, final ItemStack carried, final ClickAction action,
+                               final Player player, final SlotAccess carriedAccess) {
+        if (action != ClickAction.SECONDARY || carried.isEmpty() || target.getCount() != 1) {
+            return false;
+        }
+        final Level level = player.level();
+        if (!GenericItemFilling.canItemBeFilled(level, carried)) {
+            return false;
+        }
+        final FluidStack available = tank.getFluidInTank(0);
+        if (available.isEmpty()) {
+            return true;
+        }
+        final int required = GenericItemFilling.getRequiredAmountForItem(level, carried, available.copy());
+        if (required <= 0 || required > available.getAmount()) {
+            return true;
+        }
+        final FluidStack drained = tank.drain(required, IFluidHandler.FluidAction.EXECUTE);
+        if (drained.getAmount() < required) {
+            return true;
+        }
+        final ItemStack filled = GenericItemFilling.fillItem(level, required, carried, drained.copy());
+        if (carried.isEmpty()) {
+            carriedAccess.set(filled);
+        } else if (!filled.isEmpty() && !player.getInventory().add(filled)) {
+            player.drop(filled, false);
+        }
+        final SoundEvent sound = drained.getFluid().getFluidType().getSound(drained, SoundActions.BUCKET_FILL);
+        player.playSound(sound != null ? sound : SoundEvents.BUCKET_FILL, 0.8F, 1.0F);
         return true;
     }
 

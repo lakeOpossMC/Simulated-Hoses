@@ -20,6 +20,7 @@ public class SuperSoakerItemRenderer extends CustomRenderedItemModelRenderer {
                           final ItemDisplayContext transformType, final PoseStack ms, final MultiBufferSource buffer, final int light, final int overlay) {
         renderer.render(HoseDyedParts.dye(model.getOriginalModel(), stack), light);
         SuperSoakerFluidRenderer.render(stack, ms, buffer, light);
+        BacktankHoseRenderer.soakerDrawn(stack, transformType, ms, buffer, light);
         SuperSoakerClient.tipDrawn(stack, transformType, ms);
 
         final float partialTicks = AnimationTickHolder.getPartialTicks();

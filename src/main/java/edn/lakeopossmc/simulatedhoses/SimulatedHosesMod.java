@@ -5,6 +5,8 @@ import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.ryanhcode.sable.platform.SableEventPlatform;
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktanks;
+import edn.lakeopossmc.simulatedhoses.backtank.StowedSoakers;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseConnectorBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.HoseWinchBlock;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlock;
@@ -24,6 +26,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 
 // --- MOD ENTRY POINT --- //
@@ -32,6 +35,7 @@ public class SimulatedHosesMod {
     public static final String MOD_ID = "simulatedhoses";
     public static final Logger LOGGER = LogUtils.getLogger();
     private static final double WINCH_STRESS_IMPACT = 4.0;
+    private static final double BACKTANK_STRESS_IMPACT = 4.0;
 
     //#region // --- CONSTRUCTOR SETUP --- //
     public SimulatedHosesMod(final IEventBus modEventBus, final ModContainer modContainer, final Dist dist) {
@@ -48,6 +52,8 @@ public class SimulatedHosesMod {
         modEventBus.addListener(HoseGrabPacket::register);
         modEventBus.addListener(PlantFoodCoating::registerPacket);
         modEventBus.addListener(HoseCarryPose::registerPacket);
+        modEventBus.addListener(StowedSoakers::registerPacket);
+        modEventBus.addListener(FluidBacktanks::fillCreativeBacktanks);
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> HoseGrabHandler.serverTick());
 
         NeoForge.EVENT_BUS.addListener(HoseCommonEvents::onLevelTick);
@@ -57,6 +63,13 @@ public class SimulatedHosesMod {
         NeoForge.EVENT_BUS.addListener(GoopedEffect::noFloatingParticles);
         NeoForge.EVENT_BUS.addListener(PlantFoodCoating::onStartTracking);
         NeoForge.EVENT_BUS.addListener(HoseCarryPose::onLogin);
+        NeoForge.EVENT_BUS.addListener(FluidBacktanks::onRightClickBlock);
+        NeoForge.EVENT_BUS.addListener(FluidBacktanks::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(StowedSoakers::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(StowedSoakers::onStartTracking);
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent event) -> StowedSoakers.forget(event));
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent event) -> StowedSoakers.forget(event));
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent event) -> StowedSoakers.forget(event));
         SableEventPlatform.INSTANCE.onPhysicsTick(HoseCommonEvents::onPhysicsTick);
 
         if (dist.isClient()) {
@@ -72,6 +85,7 @@ public class SimulatedHosesMod {
             HoseWinchBlock.registerAttachedCheck();
             PressureNozzleBlock.registerAttachedCheck();
             BlockStressValues.IMPACTS.register(HoseBlocks.HOSE_WINCH.get(), () -> WINCH_STRESS_IMPACT);
+            BlockStressValues.IMPACTS.register(HoseBlocks.COPPER_FLUID_BACKTANK.get(), () -> BACKTANK_STRESS_IMPACT);
             TooltipModifier.REGISTRY.register(HoseItems.HOSE_WINCH.get(), TooltipModifier.mapNull(KineticStats.create(HoseItems.HOSE_WINCH.get())));
             HoseSimulatedTab.register();
         });

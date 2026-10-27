@@ -20,14 +20,19 @@ public final class HoseDataComponents {
                     builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC)
             );
 
-    // * Fluid in a Super Soaker's tank
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> BACKTANK_FLUID =
+            COMPONENTS.registerComponentType(
+                    "backtank_fluid",
+                    builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
+            );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> SOAKER_FLUID =
             COMPONENTS.registerComponentType(
                     "soaker_fluid",
                     builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC)
             );
 
-    // * The colour a Super Soaker's is dyed, with Bits 'n' Dyes
+    // * The colour a Super Soaker's copper is dyed, with Bits 'n' Dyes
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> SOAKER_COLOR =
             COMPONENTS.registerComponentType(
                     "soaker_color",

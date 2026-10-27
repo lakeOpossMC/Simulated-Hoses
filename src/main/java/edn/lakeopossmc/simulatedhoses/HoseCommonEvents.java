@@ -4,6 +4,7 @@ import dev.ryanhcode.sable.sublevel.system.SubLevelPhysicsSystem;
 import edn.lakeopossmc.simulatedhoses.blocks.FluidQuickConnectBlockEntity;
 import edn.lakeopossmc.simulatedhoses.blocks.MagneticHoseConnectorBlockEntity;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabHandler;
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankItem;
 import edn.lakeopossmc.simulatedhoses.items.SuperSoakerItem;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -29,6 +30,10 @@ public final class HoseCommonEvents {
                 HoseItems.PLANT_FOOD_BUCKET.get());
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> SuperSoakerItem.tank(stack),
                 HoseItems.SUPER_SOAKER.get());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HoseBlockEntities.FLUID_BACKTANK.get(),
+                (be, side) -> be.getFluidHandler(side));
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> FluidBacktankItem.tank(stack),
+                HoseItems.COPPER_FLUID_BACKTANK.get());
     }
 
     // * Drops dead magnet pairs and checks live ones for coupling

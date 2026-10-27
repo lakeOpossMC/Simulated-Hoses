@@ -17,6 +17,7 @@ public final class HoseSimulatedTab {
         addItem(HoseItems.FLUID_QUICK_CONNECT.get());
         addItem(HoseItems.PRESSURE_NOZZLE.get());
         addItem(HoseItems.SUPER_SOAKER.get());
+        addItem(HoseItems.COPPER_FLUID_BACKTANK.get());
         addItem(HoseItems.HOSE_COUPLER.get());
         addItem(HoseItems.PLANT_FOOD_BUCKET.get());
     }
