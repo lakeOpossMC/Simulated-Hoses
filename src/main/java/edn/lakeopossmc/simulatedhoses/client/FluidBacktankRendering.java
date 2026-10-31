@@ -1,9 +1,11 @@
 package edn.lakeopossmc.simulatedhoses.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.simibubi.create.content.equipment.armor.BacktankBlock;
 import com.simibubi.create.content.equipment.armor.BacktankBlockEntity;
+import com.simibubi.create.content.equipment.armor.BacktankItem;
 import com.simibubi.create.content.equipment.armor.BacktankRenderer;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
@@ -12,12 +14,24 @@ import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import edn.lakeopossmc.simulatedhoses.HoseItems;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankBlockEntity;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankItem;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 
@@ -92,7 +106,18 @@ public final class FluidBacktankRendering {
         @Override
         protected void renderSafe(final BacktankBlockEntity be, final float partialTicks, final PoseStack ms, final MultiBufferSource buffer,
                                   final int light, final int overlay) {
-            super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
+            final BlockState state = be.getBlockState();
+            final DyeColor color = HoseDyedParts.backtankColor(be);
+            final SuperByteBuffer shaft = HoseDyedParts.dyeBacktank(CachedBuffers.partial(getShaftModel(state), state), color);
+            renderRotatingBuffer(be, shaft, ms, buffer.getBuffer(this.getRenderType(be, state)), light);
+            final SuperByteBuffer cogs = HoseDyedParts.dyeBacktank(CachedBuffers.partial(getCogsModel(state), state), color);
+            cogs.center()
+                    .rotateYDegrees(180 + AngleHelper.horizontalAngle(state.getValue(BacktankBlock.HORIZONTAL_FACING)))
+                    .uncenter()
+                    .translate(0, 6.5F / 16, 11F / 16)
+                    .rotate(AngleHelper.rad(be.getSpeed() / 4F * AnimationTickHolder.getRenderTime(be.getLevel()) % 360), Direction.EAST)
+                    .translate(0, -6.5F / 16, -11F / 16);
+            cogs.light(light).renderInto(ms, buffer.getBuffer(RenderType.solid()));
             if (be instanceof final FluidBacktankBlockEntity tanks) {
                 renderTanks(tanks::getFluid, tanks.tankCount(), tanks.getCapacity(), be.getBlockState().getValue(BacktankBlock.HORIZONTAL_FACING),
                         ms, buffer, light);
@@ -114,13 +139,45 @@ public final class FluidBacktankRendering {
         protected void render(final ItemStack stack, final CustomRenderedItemModel model, final PartialItemModelRenderer renderer,
                               final ItemDisplayContext transformType, final PoseStack ms, final MultiBufferSource buffer, final int light,
                               final int overlay) {
-            renderer.render(model.getOriginalModel(), light);
+            renderer.render(HoseDyedParts.dyeBacktank(model.getOriginalModel(), HoseDyedParts.backtankColor(stack)), light);
             ms.pushPose();
             ms.translate(-0.5F, -0.5F, -0.5F);
             renderTanks(tank -> FluidBacktankItem.getFluid(stack, tank), FluidBacktankItem.tankCount(stack), FluidBacktankItem.capacity(stack),
                     Direction.NORTH, ms, buffer, light);
             ms.popPose();
         }
+    }
+    //#endregion
+
+    //#region // --- WORN AND DYED --- //
+    public static boolean renderWornDyed(final PoseStack ms, final MultiBufferSource buffer, final int light, final LivingEntity entity,
+                                         final EntityModel<?> parent) {
+        final ItemStack worn = entity.getItemBySlot(EquipmentSlot.CHEST);
+        final DyeColor color = HoseDyedParts.backtankColor(worn);
+        if (color == null || !(worn.getItem() instanceof final BacktankItem item) || !(parent instanceof final HumanoidModel<?> model)) {
+            return false;
+        }
+        final VertexConsumer vc = net.minecraft.client.renderer.entity.ItemRenderer.getFoilBuffer(buffer, Sheets.cutoutBlockSheet(), false, true);
+        final BlockState state = item.getBlock().defaultBlockState().setValue(BacktankBlock.HORIZONTAL_FACING, Direction.SOUTH);
+        final SuperByteBuffer body = HoseDyedParts.dyedBacktankBody(state, color);
+        final SuperByteBuffer nob = HoseDyedParts.dyeBacktank(CachedBuffers.partial(BacktankRenderer.getShaftModel(state), state), color);
+        final SuperByteBuffer cogs = HoseDyedParts.dyeBacktank(CachedBuffers.partial(BacktankRenderer.getCogsModel(state), state), color);
+
+        ms.pushPose();
+        model.body.translateAndRotate(ms);
+        ms.translate(-1 / 2F, 10 / 16F, 1F);
+        ms.scale(1, -1, -1);
+        body.disableDiffuse().light(light).renderInto(ms, vc);
+        nob.disableDiffuse().translate(0, -3F / 16, 0).light(light).renderInto(ms, vc);
+        cogs.center()
+                .rotateYDegrees(180)
+                .uncenter()
+                .translate(0, 6.5F / 16, 11F / 16)
+                .rotate(AngleHelper.rad(2 * AnimationTickHolder.getRenderTime(entity.level()) % 360), Direction.EAST)
+                .translate(0, -6.5F / 16, -11F / 16);
+        cogs.disableDiffuse().light(light).renderInto(ms, vc);
+        ms.popPose();
+        return true;
     }
     //#endregion
 

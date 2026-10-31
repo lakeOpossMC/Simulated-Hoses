@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.client.model.data.ModelData;
@@ -72,6 +73,11 @@ public final class BitsnDyesSoaker {
                                         final ModelData data, @Nullable final RenderType renderType) {
             return this.quads.computeIfAbsent(Arrays.asList(side, renderType),
                     key -> SimpleDyeableModelHelper.shiftSprites(super.getQuads(state, side, rand, data, renderType), this.color, this.shift));
+        }
+
+        @Override
+        public List<BakedModel> getRenderPasses(final ItemStack stack, final boolean fabulous) {
+            return List.of(this);
         }
     }
 
