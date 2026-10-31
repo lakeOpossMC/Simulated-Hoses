@@ -9,6 +9,9 @@ import com.simibubi.create.content.equipment.armor.BacktankItem;
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.foundation.item.LayeredArmorItem;
 import edn.lakeopossmc.simulatedhoses.HoseDataComponents;
+import edn.lakeopossmc.simulatedhoses.HoseItems;
+import edn.lakeopossmc.simulatedhoses.SimulatedHosesMod;
+import edn.lakeopossmc.simulatedhoses.compat.HoseDyeing;
 import edn.lakeopossmc.simulatedhoses.items.FluidDeposits;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.ChatFormatting;
@@ -18,6 +21,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,6 +31,7 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -35,6 +40,7 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Locale;
@@ -153,6 +159,17 @@ public class FluidBacktankItem extends BacktankItem {
             return stack;
         }
         return stack;
+    }
+
+    @Override
+    public @Nullable ResourceLocation getArmorTexture(final ItemStack stack, final Entity entity, final EquipmentSlot slot,
+                                                      final ArmorMaterial.Layer layer, final boolean innerModel) {
+        final DyeColor color = HoseDyeing.isLoaded() && stack.is(HoseItems.COPPER_FLUID_BACKTANK.get())
+                ? stack.get(HoseDataComponents.BACKTANK_COLOR) : null;
+        if (color != null && HoseDyeing.TEXTURED_COLOURS.contains(color.getName())) {
+            return SimulatedHosesMod.asResource("textures/models/armor/dyed/copper_diving_layer_1_" + color.getName() + ".png");
+        }
+        return super.getArmorTexture(stack, entity, slot, layer, innerModel);
     }
 
     // * Keeps the plain backtank's name

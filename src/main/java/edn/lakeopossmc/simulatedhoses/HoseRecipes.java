@@ -1,5 +1,6 @@
 package edn.lakeopossmc.simulatedhoses;
 
+import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankDyeingRecipe;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidBacktankRecipe;
 import edn.lakeopossmc.simulatedhoses.backtank.FluidKeepingSmithingRecipe;
 import edn.lakeopossmc.simulatedhoses.items.SuperSoakerDyeingRecipe;
@@ -22,6 +23,9 @@ public final class HoseRecipes {
 
     public static final DeferredHolder<RecipeSerializer<?>, SimpleCraftingRecipeSerializer<SuperSoakerDyeingRecipe>> SUPER_SOAKER_DYEING =
             SERIALIZERS.register("super_soaker_dyeing", () -> new SimpleCraftingRecipeSerializer<>(SuperSoakerDyeingRecipe::new));
+
+    public static final DeferredHolder<RecipeSerializer<?>, SimpleCraftingRecipeSerializer<FluidBacktankDyeingRecipe>> FLUID_BACKTANK_DYEING =
+            SERIALIZERS.register("fluid_backtank_dyeing", () -> new SimpleCraftingRecipeSerializer<>(FluidBacktankDyeingRecipe::new));
 
     private HoseRecipes() {
     }

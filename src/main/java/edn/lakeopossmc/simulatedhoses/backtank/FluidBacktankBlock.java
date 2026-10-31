@@ -5,10 +5,12 @@ import com.simibubi.create.content.equipment.armor.BacktankBlockEntity;
 import com.simibubi.create.content.equipment.armor.BacktankItem;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
 import edn.lakeopossmc.simulatedhoses.HoseDataComponents;
+import edn.lakeopossmc.simulatedhoses.compat.HoseDyeing;
 import com.simibubi.create.AllShapes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -102,8 +104,13 @@ public class FluidBacktankBlock extends BacktankBlock {
             be.setFluid(tank, FluidBacktankItem.getFluid(stack, tank));
         }
         be.setFeedTank(stack.getOrDefault(HoseDataComponents.BACKTANK_FEED, FluidBacktankItem.PULL_BOTH));
+        final DyeColor color = stack.get(HoseDataComponents.BACKTANK_COLOR);
+        if (color != null) {
+            HoseDyeing.setBacktankColor(be, color);
+        }
         be.setComponentPatch(be.getComponentPatch().forget(type -> type == HoseDataComponents.BACKTANK_FLUID.get()
-                || type == HoseDataComponents.BACKTANK_SECOND_FLUID.get() || type == HoseDataComponents.BACKTANK_FEED.get()));
+                || type == HoseDataComponents.BACKTANK_SECOND_FLUID.get() || type == HoseDataComponents.BACKTANK_FEED.get()
+                || type == HoseDataComponents.BACKTANK_COLOR.get()));
     }
 
     @Override
@@ -142,6 +149,12 @@ public class FluidBacktankBlock extends BacktankBlock {
             stack.remove(HoseDataComponents.BACKTANK_FEED);
         } else {
             stack.set(HoseDataComponents.BACKTANK_FEED, be.getFeedTank());
+        }
+        final DyeColor color = HoseDyeing.backtankColor(be);
+        if (color == null) {
+            stack.remove(HoseDataComponents.BACKTANK_COLOR);
+        } else {
+            stack.set(HoseDataComponents.BACKTANK_COLOR, color);
         }
     }
 }

@@ -1,7 +1,5 @@
 package edn.lakeopossmc.simulatedhoses.client;
 
-import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
-import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer;
 import dev.simulated_team.simulated.index.SimClickInteractions;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
 import edn.lakeopossmc.simulatedhoses.backtank.StowedSoakers;
@@ -47,10 +45,6 @@ public final class HoseClient {
         // * Hold use with an empty hand to carry a connector
         modEventBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PlantFoodClient.setRenderLayers();
-            SimpleBlockEntityVisualizer.builder(HoseBlockEntities.FLUID_BACKTANK.get())
-                    .factory(SingleAxisRotatingVisual::backtank)
-                    .neverSkipVanillaRender()
-                    .apply();
             grab = new HoseGrabClientHandler();
             SimClickInteractions.register(grab);
         }));

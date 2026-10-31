@@ -53,6 +53,13 @@ public final class HoseDataComponents {
                     builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC)
             );
 
+    // * The colour a copper fluid backtank is dyed, with Bits 'n' Dyes
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> BACKTANK_COLOR =
+            COMPONENTS.registerComponentType(
+                    "backtank_color",
+                    builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC)
+            );
+
     private HoseDataComponents() {
     }
 
