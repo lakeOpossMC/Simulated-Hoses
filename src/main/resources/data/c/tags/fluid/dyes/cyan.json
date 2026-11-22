@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "simulatedhoses:cyan_dye",
+      "required": false
+    },
+    {
+      "id": "simulatedhoses:flowing_cyan_dye",
+      "required": false
+    }
+  ]
+}

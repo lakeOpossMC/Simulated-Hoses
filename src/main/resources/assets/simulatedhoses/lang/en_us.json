@@ -37,5 +37,7 @@
   "fluid_type.simulatedhoses.plant_food": "Plant Food",
   "block.simulatedhoses.plant_food": "Plant Food",
   "item.simulatedhoses.plant_food_bucket": "Plant Food Bucket",
-  "effect.simulatedhoses.gooped": "Gooped!"
+  "effect.simulatedhoses.gooped": "Gooped!",
+  "fluid_type.simulatedhoses.dye": "%s Dye",
+  "item.simulatedhoses.dye_bucket": "%s Dye Bucket"
 }

@@ -7,6 +7,14 @@
     {
       "type": "single",
       "resource": "simulatedhoses:fluid/plant_food_flow"
+    },
+    {
+      "type": "single",
+      "resource": "simulatedhoses:fluid/dye_still"
+    },
+    {
+      "type": "single",
+      "resource": "simulatedhoses:fluid/dye_flow"
     }
   ]
 }

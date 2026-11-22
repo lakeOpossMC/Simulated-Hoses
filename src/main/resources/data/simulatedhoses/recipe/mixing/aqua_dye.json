@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "create_dragons_plus"
+      }
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "dye_depot"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "c:dyes/aqua"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 250,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "amount": 250,
+      "id": "simulatedhoses:aqua_dye"
+    }
+  ]
+}
