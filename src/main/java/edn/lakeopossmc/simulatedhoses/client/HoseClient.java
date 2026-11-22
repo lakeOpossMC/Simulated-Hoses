@@ -30,6 +30,7 @@ public final class HoseClient {
 
     public static void init(final IEventBus modEventBus) {
         HosePartialModels.init();
+        DyeFluidsClient.init(modEventBus);
         modEventBus.addListener(HoseClient::registerRenderers);
         modEventBus.addListener(PlantFoodClient::registerExtensions);
         modEventBus.addListener(PlantFoodCoatLayer::addLayers);
@@ -45,6 +46,7 @@ public final class HoseClient {
         // * Hold use with an empty hand to carry a connector
         modEventBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PlantFoodClient.setRenderLayers();
+            DyeFluidsClient.setRenderLayers();
             grab = new HoseGrabClientHandler();
             SimClickInteractions.register(grab);
         }));

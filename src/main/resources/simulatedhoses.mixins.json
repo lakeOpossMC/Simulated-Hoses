@@ -4,7 +4,10 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"MixinRopeItem",
-		"MixinEntityStepSound"
+		"MixinEntityStepSound",
+		"MixinFlowingFluidDye",
+		"WolfCollarAccessor",
+		"CatCollarAccessor"
 	],
 	"client": [
 		"MixinHumanoidModelCarry",

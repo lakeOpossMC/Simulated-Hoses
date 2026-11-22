@@ -4,6 +4,7 @@ import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesBacktank;
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesBacktankClient;
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesClient;
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesCompat;
+import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesPaint;
 import edn.lakeopossmc.simulatedhoses.compat.bitsndyes.BitsnDyesSoaker;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -44,6 +45,11 @@ public final class HoseDyeing {
     @Nullable
     public static DyeColor backtankColor(final BlockEntity be) {
         return LOADED ? BitsnDyesBacktank.getColor(be) : null;
+    }
+
+    // * Recolours a block Bits 'n' Dyes can dye
+    public static boolean dyeBlockEntity(final BlockEntity be, final DyeColor color) {
+        return LOADED && BitsnDyesPaint.dye(be, color);
     }
 
     public static void setBacktankColor(final BlockEntity be, final DyeColor color) {

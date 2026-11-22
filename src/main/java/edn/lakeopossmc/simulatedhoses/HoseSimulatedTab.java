@@ -1,6 +1,7 @@
 package edn.lakeopossmc.simulatedhoses;
 
 import dev.simulated_team.simulated.registrate.SimulatedRegistrate;
+import edn.lakeopossmc.simulatedhoses.fluids.DyeFluids;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,9 @@ public final class HoseSimulatedTab {
         addItem(HoseItems.NETHERITE_DUAL_FLUID_BACKTANK.get());
         addItem(HoseItems.HOSE_COUPLER.get());
         addItem(HoseItems.PLANT_FOOD_BUCKET.get());
+        for (final DyeFluids.Dye dye : DyeFluids.all()) {
+            addItem(dye.bucket().get());
+        }
     }
 
     private static void addItem(final Item item) {

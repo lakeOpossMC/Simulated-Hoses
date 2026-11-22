@@ -7,6 +7,7 @@ import edn.lakeopossmc.simulatedhoses.HoseDataComponents;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlockEntity;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleClouds;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleConsumingEffects;
+import edn.lakeopossmc.simulatedhoses.hose.NozzleDyeing;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleGrowth;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleJet;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleProcessing;
@@ -161,6 +162,7 @@ public class SuperSoakerItem extends Item implements CustomArmPoseItem {
         NozzleClouds.apply(level, impact, fluid, flow, player, progress.clouds);
         NozzleConsumingEffects.apply(level, impact, fluid, flow, progress.consuming);
         NozzleGrowth.apply(level, impact, fluid, flow, player, progress.growth);
+        NozzleDyeing.apply(level, impact, fluid, FLOW);
     }
 
     // * From the end of the barrel, converging on the crosshair

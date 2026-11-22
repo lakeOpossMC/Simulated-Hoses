@@ -11,6 +11,7 @@ import edn.lakeopossmc.simulatedhoses.hose.HoseGoggles;
 import edn.lakeopossmc.simulatedhoses.hose.HoseGrabHandler;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleClouds;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleConsumingEffects;
+import edn.lakeopossmc.simulatedhoses.hose.NozzleDyeing;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleGrowth;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleJet;
 import edn.lakeopossmc.simulatedhoses.hose.NozzleProcessing;
@@ -176,6 +177,7 @@ public class PressureNozzleBlockEntity extends SmartBlockEntity implements IHave
             NozzleClouds.apply(level, impact, this.fluid, this.flow, carrier, this.cloudProgress);
             NozzleConsumingEffects.apply(level, impact, this.fluid, this.flow, this.consumingProgress);
             NozzleGrowth.apply(level, impact, this.fluid, this.flow, carrier, this.growthProgress);
+            NozzleDyeing.apply(level, impact, this.fluid, this.flow);
         }
     }
 
