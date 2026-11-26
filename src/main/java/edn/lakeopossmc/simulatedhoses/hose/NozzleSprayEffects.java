@@ -1,6 +1,7 @@
 package edn.lakeopossmc.simulatedhoses.hose;
 
 import com.simibubi.create.api.effect.OpenPipeEffectHandler;
+import edn.lakeopossmc.simulatedhoses.compat.BurntExtinguishing;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -106,6 +107,7 @@ public final class NozzleSprayEffects {
                     axolotl.rehydrate();
                 }
             }
+            BurntExtinguishing.douse(level, area, block);
         }
         if (block == null) {
             return;
