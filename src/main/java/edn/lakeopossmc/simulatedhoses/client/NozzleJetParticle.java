@@ -22,7 +22,9 @@ public class NozzleJetParticle extends FluidStackParticle {
         final double vy = this.yd;
         final double vz = this.zd;
         super.tick();
-        final boolean collided = this.onGround
+        // * Stops at the surface of a fluid
+        final boolean collided = FluidSurface.entered(this.level, this.xo, this.yo, this.zo, this.x, this.y, this.z) != null
+                || this.onGround
                 || (vx != 0.0 && this.xd == 0.0)
                 || (vz != 0.0 && this.zd == 0.0)
                 || (vy > 0.0 && this.yd == 0.0);

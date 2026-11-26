@@ -4,14 +4,12 @@ import com.simibubi.create.content.fluids.FluidFX;
 import dev.ryanhcode.sable.Sable;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import edn.lakeopossmc.simulatedhoses.blocks.PressureNozzleBlockEntity;
-import edn.lakeopossmc.simulatedhoses.fluids.PaintColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -22,6 +20,7 @@ public final class HoseSpray {
     private static final double RIM_RADIUS = 0.265625;
     private static final int GLOB_LIFETIME = 40;
     private static final float SPILL_SPLASH = 0.2F;
+    private static final int CLUMP_LIFETIME = 30;
 
     public static void tick(final Level level, final BlockPos pos, final Direction direction, final double faceOffset, final FluidStack fluid, final int flow) {
         if (fluid.isEmpty() || flow <= 0) {
@@ -29,7 +28,10 @@ public final class HoseSpray {
         }
         final RandomSource random = level.random;
         final ParticleOptions particle = FluidFX.getFluidParticle(fluid);
-        final DyeColor dye = level instanceof ClientLevel && PaintGlobParticle.ready() ? PaintColors.of(fluid) : null;
+        final SprayEffect effect = level instanceof ClientLevel ? SprayEffects.of(fluid) : null;
+        final int rgb = effect != null ? effect.color(fluid) : 0;
+        final int[] palette = effect != null && effect.style == SprayEffect.Style.MOLTEN ? effect.palette(fluid) : null;
+        final boolean glows = effect != null && effect.emissive(fluid);
         final SubLevel subLevel = Sable.HELPER.getContaining(level, new ChunkPos(pos));
 
         // * Face center and direction, turned into world space
@@ -47,6 +49,8 @@ public final class HoseSpray {
         // * A busier hose throws out a thicker spray
         final int count = flow >= 100 ? 2 : 1;
         final double spill = Math.min(1.0, flow / (double) PressureNozzleBlockEntity.FULL_FLOW);
+        final float size = effect != null ? effect.hoseSize * (1.0F + effect.hoseFlowGrowth * (float) spill) : 0.0F;
+        final float strength = Math.max(SPILL_SPLASH, (float) spill);
         for (int i = 0; i < count; i++) {
             final double angle = random.nextDouble() * Math.PI * 2;
             final double radius = RIM_RADIUS * Math.sqrt(random.nextDouble());
@@ -57,10 +61,20 @@ public final class HoseSpray {
             final Vector3d motion = new Vector3d(normal).mul(speed)
                     .fma((random.nextDouble() - 0.5) * 0.04, side1)
                     .fma((random.nextDouble() - 0.5) * 0.04, side2);
-            if (dye != null) {
-                Minecraft.getInstance().particleEngine.add(new PaintGlobParticle((ClientLevel) level, at.x, at.y, at.z,
-                        motion.x, motion.y, motion.z, GLOB_LIFETIME + random.nextInt(10), dye.getTextureDiffuseColor(),
-                        PaintGlobParticle.spillSize(spill), Math.max(SPILL_SPLASH, (float) spill)));
+            if (effect != null) {
+                final ClientLevel clientLevel = (ClientLevel) level;
+                final int life = random.nextInt(10);
+                switch (effect.style) {
+                    case SPRAY -> Minecraft.getInstance().particleEngine.add(new FluidSprayParticle(clientLevel, at.x, at.y, at.z,
+                            motion.x, motion.y, motion.z, CLUMP_LIFETIME + life, rgb, size * (0.85F + random.nextFloat() * 0.3F),
+                            FluidSprayParticle.Kind.CORE, glows, effect));
+                    case GLOB -> Minecraft.getInstance().particleEngine.add(new PaintGlobParticle(clientLevel, at.x, at.y, at.z,
+                            motion.x, motion.y, motion.z, GLOB_LIFETIME + life, rgb, size, strength, effect, glows));
+                    case MOLTEN -> Minecraft.getInstance().particleEngine.add(new MagmaGlobParticle(clientLevel, at.x, at.y, at.z,
+                            motion.x, motion.y, motion.z, CLUMP_LIFETIME + life, palette, size, strength, effect, glows));
+                    case VISCOUS -> Minecraft.getInstance().particleEngine.add(new ViscousGlobParticle(clientLevel, at.x, at.y, at.z,
+                            motion.x, motion.y, motion.z, CLUMP_LIFETIME + life, rgb, size, strength, effect, glows));
+                }
                 continue;
             }
             level.addParticle(particle, at.x, at.y, at.z, motion.x, motion.y, motion.z);

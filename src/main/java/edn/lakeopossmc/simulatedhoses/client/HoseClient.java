@@ -2,6 +2,7 @@ package edn.lakeopossmc.simulatedhoses.client;
 
 import dev.simulated_team.simulated.index.SimClickInteractions;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
+import edn.lakeopossmc.simulatedhoses.HoseParticles;
 import edn.lakeopossmc.simulatedhoses.backtank.StowedSoakers;
 import edn.lakeopossmc.simulatedhoses.fluids.PlantFoodCoating;
 import edn.lakeopossmc.simulatedhoses.hose.HoseCarryPose;
@@ -13,12 +14,14 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import org.jetbrains.annotations.Nullable;
 
 // --- CLIENT SETUP --- //
@@ -32,6 +35,12 @@ public final class HoseClient {
         HosePartialModels.init();
         DyeFluidsClient.init(modEventBus);
         modEventBus.addListener(HoseClient::registerRenderers);
+        // * The sprites registered here only serve /particle
+        modEventBus.addListener((RegisterParticleProvidersEvent event) -> {
+            event.registerSpriteSet(HoseParticles.FLUID_SPRAY.get(), FluidSprayParticle::provider);
+            event.registerSpriteSet(HoseParticles.MAGMA_GLOB.get(), MagmaGlobParticle::provider);
+            event.registerSpriteSet(HoseParticles.VISCOUS_GLOB.get(), ViscousGlobParticle::provider);
+        });
         modEventBus.addListener(PlantFoodClient::registerExtensions);
         modEventBus.addListener(PlantFoodCoatLayer::addLayers);
         modEventBus.addListener(PlantFoodVisionOverlay::register);
@@ -42,7 +51,11 @@ public final class HoseClient {
                 (ResourceManagerReloadListener) manager -> {
                     PlantFoodVisionFilter.invalidate();
                     PlantFoodGlaze.invalidate();
+                    FluidSprayColors.invalidate();
                 }));
+        // * Every fluid's spray, from assets/<namespace>/hose_sprays/*.json in resource packs
+        modEventBus.addListener((RegisterClientReloadListenersEvent event) -> event.registerReloadListener(SprayEffects.INSTANCE));
+        NeoForge.EVENT_BUS.addListener((TagsUpdatedEvent event) -> SprayEffects.clearCache());
         // * Hold use with an empty hand to carry a connector
         modEventBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PlantFoodClient.setRenderLayers();
