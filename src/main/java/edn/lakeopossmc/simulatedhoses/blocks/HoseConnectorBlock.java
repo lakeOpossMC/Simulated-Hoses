@@ -10,9 +10,11 @@ import dev.simulated_team.simulated.index.SimTags;
 import edn.lakeopossmc.simulatedhoses.HoseBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 // --- HOSE CONNECTOR --- //
 public class HoseConnectorBlock extends AbstractDirectionalAxisBlock implements IBE<HoseConnectorBlockEntity>, RopeHolderBlock<HoseConnectorBlockEntity>, BlockSubLevelCollisionShape {
@@ -74,6 +77,14 @@ public class HoseConnectorBlock extends AbstractDirectionalAxisBlock implements 
     @Override
     public VoxelShape getSubLevelCollisionShape(final BlockGetter level, final BlockState state) {
         return HoseShapes.CONNECTOR_COLLIDER.get(state.getValue(FACING), state.getValue(AXIS_ALONG_FIRST_COORDINATE));
+    }
+
+    @Override
+    public void setPlacedBy(final Level level, final BlockPos pos, final BlockState state, @Nullable final LivingEntity placer, final ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level instanceof final ServerLevel serverLevel) {
+            ConnectorSelfAssembly.queue(serverLevel, pos);
+        }
     }
 
     @Override
