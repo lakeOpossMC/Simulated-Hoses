@@ -1,0 +1,22 @@
+{
+  "textures": [
+    "simulatedhoses:hose_spray/lava/glob_0",
+    "simulatedhoses:hose_spray/lava/glob_1",
+    "simulatedhoses:hose_spray/lava/glob_2",
+    "simulatedhoses:hose_spray/lava/glob_3",
+    "simulatedhoses:hose_spray/lava/glob_4",
+    "simulatedhoses:hose_spray/lava/glob_5",
+    "simulatedhoses:hose_spray/lava/glob_0_glow",
+    "simulatedhoses:hose_spray/lava/glob_1_glow",
+    "simulatedhoses:hose_spray/lava/glob_2_glow",
+    "simulatedhoses:hose_spray/lava/glob_3_glow",
+    "simulatedhoses:hose_spray/lava/glob_4_glow",
+    "simulatedhoses:hose_spray/lava/glob_5_glow",
+    "simulatedhoses:hose_spray/lava/glob_0_flow",
+    "simulatedhoses:hose_spray/lava/glob_1_flow",
+    "simulatedhoses:hose_spray/lava/glob_2_flow",
+    "simulatedhoses:hose_spray/lava/glob_3_flow",
+    "simulatedhoses:hose_spray/lava/glob_4_flow",
+    "simulatedhoses:hose_spray/lava/glob_5_flow"
+  ]
+}

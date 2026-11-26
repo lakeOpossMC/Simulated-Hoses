@@ -1,0 +1,7 @@
+{
+  "fluids": [
+    "#minecraft:lava"
+  ],
+  "style": "molten",
+  "textures": "simulatedhoses:lava"
+}

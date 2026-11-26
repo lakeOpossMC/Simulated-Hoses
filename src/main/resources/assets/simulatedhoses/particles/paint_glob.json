@@ -1,16 +1,16 @@
 {
   "textures": [
-    "simulatedhoses:paint_glob_0",
-    "simulatedhoses:paint_glob_1",
-    "simulatedhoses:paint_glob_2",
-    "simulatedhoses:paint_glob_3",
-    "simulatedhoses:paint_glob_4",
-    "simulatedhoses:paint_glob_5",
-    "simulatedhoses:paint_glob_0_gloss",
-    "simulatedhoses:paint_glob_1_gloss",
-    "simulatedhoses:paint_glob_2_gloss",
-    "simulatedhoses:paint_glob_3_gloss",
-    "simulatedhoses:paint_glob_4_gloss",
-    "simulatedhoses:paint_glob_5_gloss"
+    "simulatedhoses:hose_spray/paint/glob_0",
+    "simulatedhoses:hose_spray/paint/glob_1",
+    "simulatedhoses:hose_spray/paint/glob_2",
+    "simulatedhoses:hose_spray/paint/glob_3",
+    "simulatedhoses:hose_spray/paint/glob_4",
+    "simulatedhoses:hose_spray/paint/glob_5",
+    "simulatedhoses:hose_spray/paint/glob_0_gloss",
+    "simulatedhoses:hose_spray/paint/glob_1_gloss",
+    "simulatedhoses:hose_spray/paint/glob_2_gloss",
+    "simulatedhoses:hose_spray/paint/glob_3_gloss",
+    "simulatedhoses:hose_spray/paint/glob_4_gloss",
+    "simulatedhoses:hose_spray/paint/glob_5_gloss"
   ]
 }

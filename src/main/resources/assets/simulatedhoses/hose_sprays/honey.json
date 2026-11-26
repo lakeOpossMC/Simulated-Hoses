@@ -1,0 +1,28 @@
+{
+  "fluids": [
+    "#c:honey"
+  ],
+  "style": "viscous",
+  "textures": "simulatedhoses:honey",
+  "shine_color": "#FFF3C0",
+  "shine": 0.9,
+  "stretch": 1.0,
+  "fresh_stretch": 0.8,
+  "spin": 0.03,
+  "shed_chance": 0.12,
+  "splash": {
+    "count": [
+      4,
+      5
+    ],
+    "speed": [
+      0.07,
+      0.14
+    ],
+    "lift": 0.22,
+    "size": [
+      0.5,
+      0.4
+    ]
+  }
+}

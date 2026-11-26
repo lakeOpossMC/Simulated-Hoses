@@ -1,0 +1,27 @@
+{
+  "fluids": [
+    "simulatedhoses:plant_food"
+  ],
+  "style": "viscous",
+  "textures": "simulatedhoses:plant_food",
+  "shine_color": "#E8FFB0",
+  "shine": 0.85,
+  "stretch": 0.4,
+  "fresh_stretch": 0.32,
+  "spin": "rock",
+  "splash": {
+    "count": [
+      2,
+      3
+    ],
+    "speed": [
+      0.03,
+      0.06
+    ],
+    "lift": 0.08,
+    "size": [
+      0.4,
+      0.3
+    ]
+  }
+}

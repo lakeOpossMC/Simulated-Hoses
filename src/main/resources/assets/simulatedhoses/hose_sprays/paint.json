@@ -1,0 +1,7 @@
+{
+  "fluids": [
+    "@paint"
+  ],
+  "style": "glob",
+  "textures": "simulatedhoses:paint"
+}

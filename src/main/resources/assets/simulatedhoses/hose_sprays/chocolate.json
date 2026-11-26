@@ -1,0 +1,28 @@
+{
+  "fluids": [
+    "#c:chocolate"
+  ],
+  "style": "viscous",
+  "textures": "simulatedhoses:chocolate",
+  "shine_color": "#E8B9A0",
+  "shine": 0.85,
+  "stretch": 0.6,
+  "fresh_stretch": 0.48,
+  "spin": 0.05,
+  "shed_chance": 0.15,
+  "splash": {
+    "count": [
+      5,
+      6
+    ],
+    "speed": [
+      0.08,
+      0.16
+    ],
+    "lift": 0.25,
+    "size": [
+      0.5,
+      0.4
+    ]
+  }
+}
